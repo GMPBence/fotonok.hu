@@ -1,1 +1,15 @@
 @import "tailwindcss";
+@import "@fontsource/roboto-slab";
+
+
+@layer base {
+  body {
+    font-family: "Roboto Slab";
+  }
+}
+
+@theme {
+  --color-primary: #090D18;
+  --color-light: #717C9C;
+  --color-secondary: #111F46
+}
