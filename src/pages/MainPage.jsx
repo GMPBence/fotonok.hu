@@ -18,18 +18,24 @@ const MainPage = () => {
             Rövid, érthető, lényegre törő leírások – középiskolásoknak
           </h2>
           <div className="flex flex-row gap-2">
-            <Button text="Jegyzetek" type="main" />
-            <Button text="Hogyan működik?" type="main" />
+            <a href="#notes">
+              <Button text="Jegyzetek" type="main" />
+            </a>
+            <a href="#howItWorks">
+              <Button text="Hogyan működik?" type="main" />
+            </a>
           </div>
         </div>
         <img src={LaptopImage} className=" max-w-120" alt="" />
       </div>
-      <div className="bg-primary w-[110%] -ms-10 h-25 my-10 rotate-358"></div>
+      <div className="bg-primary w-[110%] -ms-10 h-25 my-20 rotate-358"></div>
 
       <div className="w-full flex flex-col items-center">
         <div className="flex flex-col items-center gap-4">
           <div className="max-w-100 flex flex-col items-center">
-            <h1 className="text-3xl text-primary font-extrabold">Jegyzetek</h1>
+            <a className="text-3xl text-primary font-extrabold" id="notes">
+              Jegyzetek
+            </a>
             <div className="w-[70%] h-1 bg-highlight rounded-2xl"></div>
           </div>
           <div className="w-100">
@@ -42,6 +48,7 @@ const MainPage = () => {
             src="https://placehold.co/250x150"
             desc="Lorem ipsum dolor sit amet consectetur adipisicing elit. "
             price="250"
+            type="big"
             content={[
               "Cigányok származása",
               "Cigányok származása",
@@ -53,6 +60,7 @@ const MainPage = () => {
             title="Cigányok származása"
             src="https://placehold.co/250x150"
             desc="Lorem ipsum dolor sit amet consectetur adipisicing elit. "
+            type="big"
             price="250"
             content={[
               "Cigányok származása",
@@ -65,6 +73,7 @@ const MainPage = () => {
             title="Cigányok származása"
             src="https://placehold.co/250x150"
             desc="Lorem ipsum dolor sit amet consectetur adipisicing elit. "
+            type="big"
             price="250"
             content={[
               "Cigányok származása",
@@ -77,6 +86,7 @@ const MainPage = () => {
             title="Cigányok származása"
             src="https://placehold.co/250x150"
             desc="Lorem ipsum dolor sit amet consectetur adipisicing elit. "
+            type="big"
             price="250"
             content={[
               "Cigányok származása",
@@ -85,6 +95,16 @@ const MainPage = () => {
               "Cigányok származása",
             ]}
           />
+        </div>
+        <div className="bg-primary w-[110%] -ms-10 h-25 my-20 rotate-358"></div>
+        <div className="max-w-100 flex flex-col items-center">
+          <a className="text-3xl text-primary font-extrabold" id="howItWorks">
+            Hogyan Működik?
+          </a>
+          <div className="w-[70%] h-1 bg-highlight rounded-2xl"></div>
+          <div>
+            <Card type="small" />
+          </div>
         </div>
       </div>
       <Footer />
