@@ -5,7 +5,7 @@ import Button from "../components/Button";
 import LaptopImage from "../assets/images/laptop.png";
 const MainPage = () => {
   return (
-    <div className="flex flex-col  w-full h-screen">
+    <div className="flex flex-col  w-full h-screen overflow-hidden">
       <Navbar />
       <div className="w-full flex flex-row justify-between items-center px-55 mt-4">
         <div className="flex-col flex max-w-100 gap-3">
@@ -22,6 +22,7 @@ const MainPage = () => {
         </div>
         <img src={LaptopImage} className=" max-w-120" alt="" />
       </div>
+      <div className="bg-primary w-[110%] -ms-10 h-25 my-10 rotate-358"></div>
       <Footer />
     </div>
   );
