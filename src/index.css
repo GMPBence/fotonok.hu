@@ -11,5 +11,6 @@
 @theme {
   --color-primary: #090D18;
   --color-light: #717C9C;
-  --color-secondary: #111F46
+  --color-secondary: #111F46;
+  --color-highlight: #F3BA12;
 }

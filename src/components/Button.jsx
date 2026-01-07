@@ -2,7 +2,7 @@ function Button(props) {
   if (props.type === "primary") {
     return (
       <>
-        <button className="bg-amber-500">{props.text}</button>
+        <button className="bg-secondary text-light py-2 px-3 rounded-2xl w-full">{props.text}</button>
       </>
     );
   }
