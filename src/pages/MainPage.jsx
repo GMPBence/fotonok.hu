@@ -38,13 +38,14 @@ const MainPage = () => {
             <SearchBar />
           </div>
         </div>
-        <div className="flex flex-row gap-12.5 px-25 mt-10 justify-evenly max-w-400">
+        <div className="grid grid-cols-4 gap-12.5 px-25 mt-10 justify-evenly max-w-400">
           <Card
             title="Cigányok származása"
             src="https://placehold.co/250x150"
             desc="Lorem ipsum dolor sit amet consectetur adipisicing elit. "
             price="250"
             type="big"
+            popular={true}
             content={[
               "Cigányok származása",
               "Cigányok származása",
@@ -52,6 +53,7 @@ const MainPage = () => {
               "Cigányok származása",
             ]}
           />
+          
           <Card
             title="Cigányok származása"
             src="https://placehold.co/250x150"
@@ -102,7 +104,7 @@ const MainPage = () => {
           </a>
           <div className="w-[70%] h-1 bg-highlight rounded-2xl mb-10"></div>
         </div>
-        <div className=" flex flex-row mb-12.5 gap-12.5 ">
+        <div className=" grid grid-cols-4 mb-12.5 gap-12.5 ">
           <Card
             type="small"
             title="1. Lépés"

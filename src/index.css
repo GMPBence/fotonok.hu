@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "@fontsource/roboto-slab";
+@import "@fontsource/bowlby-one-sc";
 
 
 @layer base {
@@ -16,4 +17,5 @@
   --color-light: #717C9C;
   --color-secondary: #111F46;
   --color-highlight: #F3BA12;
+  --font-bowlby: "Bowlby One SC";
 }
