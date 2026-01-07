@@ -9,8 +9,8 @@ const MainPage = () => {
   return (
     <div className="flex flex-col  w-full overflow-x-hidden">
       <Navbar />
-      <div className="w-full flex flex-row justify-between items-center px-55 mt-4">
-        <div className="flex-col flex max-w-100 gap-3">
+      <div className="w-full flex flex-col lg:flex-row justify-between items-center max-w-300 px-10 mx-auto mt-15 lg:mt-4">
+        <div className="flex-col flex max-w-100 gap-3 mb-10 lg:mb-0">
           <h1 className="text-3xl text-primary font-extrabold">
             Olcsó fizika jegyzetek dolgozatokra és TZ-kre
           </h1>
@@ -22,9 +22,9 @@ const MainPage = () => {
             <Button text="Hogyan működik?" type="main" href="#howItWorks" />
           </div>
         </div>
-        <img src={LaptopImage} className=" max-w-120" alt="" />
+        <img src={LaptopImage} className=" w-120" alt="" />
       </div>
-      <div className="bg-primary w-[110%] -ms-10 h-25 my-20 rotate-358"></div>
+      <div className="bg-primary w-[300%] -ms-10 h-25 my-20 rotate-358"></div>
 
       <div className="w-full flex flex-col items-center">
         <div className="flex flex-col items-center gap-4">
@@ -34,7 +34,7 @@ const MainPage = () => {
             </a>
             <div className="w-[70%] h-1 bg-highlight rounded-2xl"></div>
           </div>
-          <div className="w-100">
+          <div className="md:w-100">
             <SearchBar />
           </div>
         </div>
@@ -53,7 +53,7 @@ const MainPage = () => {
               "Cigányok származása",
             ]}
           />
-          
+
           <Card
             title="Cigányok származása"
             src="https://placehold.co/250x150"
@@ -94,7 +94,7 @@ const MainPage = () => {
             ]}
           />
         </div>
-        <div className="bg-primary w-[110%] -ms-10 h-25 my-20 rotate-358"></div>
+        <div className="bg-primary w-[300%] -ms-10 h-25 my-20 rotate-358"></div>
         <div className="max-w-100 flex flex-col items-center">
           <a
             className="text-3xl text-primary font-extrabold mb-1"
