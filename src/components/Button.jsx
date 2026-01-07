@@ -10,11 +10,12 @@ function Button(props) {
   }
   if (props.type === "main") {
     return (
-      <>
-        <button className="bg-secondary text-white py-2 px-3 rounded-2xl w-full">
-          {props.text}
-        </button>
-      </>
+      <a 
+        href={props.href}
+        className="bg-secondary text-white py-2 px-3 rounded-2xl inline-block w-full text-center cursor-pointer hover:bg-primaryHover transition-all"
+      >
+        {props.text}
+      </a>
     );
   }
 

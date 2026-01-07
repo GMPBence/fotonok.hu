@@ -11,23 +11,23 @@ function Card(props) {
           <h2 className="border-b-highlight border-b-2 w-fit pe-2 mb-3">
             {props.title}
           </h2>
-          <ul className="ml-5" style={{ listStyle: "none", paddingLeft: "0" }}>
+          <div className="" style={{ listStyle: "none", paddingLeft: "0" }}>
             {items.map((item, index) => (
               <li
                 key={index}
                 className="text-sm"
                 style={{
                   backgroundImage: `url(${listImage})`,
-                  backgroundSize: "10px 10px",
+                  backgroundSize: "7px 7px",
                   backgroundRepeat: "no-repeat",
-                  backgroundPosition: "0 4px",
+                  backgroundPosition: "0 6px",
                   paddingLeft: "12px",
                 }}
               >
                 {item}
               </li>
             ))}
-          </ul>
+          </div>
           <p className="text-sm mt-2">{props.desc}</p>
           <h1 className="text-center my-2">Ár: {props.price} Ft</h1>
           <Button type="main" text="Vásárlás" />
@@ -35,7 +35,14 @@ function Card(props) {
       </div>
     );
   } else if (props.type === "small") {
-    return <>adadassd</>;
+    return (
+      <div className="bg-primary w-62.5 rounded-xl px-10 py-5 text-center text-white">
+        <h2 className="border-b-highlight border-b-2 pb-2 mb-3">
+          {props.title}
+        </h2>
+        <p>{props.content}</p>
+      </div>
+    );
   }
 }
 export default Card;

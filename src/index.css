@@ -6,9 +6,13 @@
   body {
     font-family: "Roboto Slab";
   }
+  html{
+     scroll-behavior: smooth;
+  }
 }
 @theme {
   --color-primary: #090D18;
+  --color-primaryHover: #1F2C52;
   --color-light: #717C9C;
   --color-secondary: #111F46;
   --color-highlight: #F3BA12;
