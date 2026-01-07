@@ -17,8 +17,8 @@ function Card(props) {
           </div>
         )}
         <img src={props.src} alt="" />
-        <div className="bg-primary text-white p-5">
-          <h2 className="border-b-highlight border-b-2 w-fit pe-2 mb-3">
+        <div className="bg-primary text-white p-5 ">
+          <h2 className="border-b-highlight border-b-2 w-fit pe-2 mb-3 font-bold">
             {props.title}
           </h2>
           <div className="" style={{ listStyle: "none", paddingLeft: "0" }}>
@@ -39,7 +39,7 @@ function Card(props) {
             ))}
           </div>
           <p className="text-sm mt-2">{props.desc}</p>
-          <h1 className="text-center my-2">Ár: {props.price} Ft</h1>
+          <h1 className="text-center my-2 font-bold">Ár: {props.price} Ft</h1>
           <Button type="main" text="Vásárlás" />
         </div>
       </div>
@@ -50,7 +50,7 @@ function Card(props) {
         <h2 className="border-b-highlight border-b-2 pb-2 mb-3">
           {props.title}
         </h2>
-        <p>{props.content}</p>
+        <p className="font-bold">{props.content}</p>
       </div>
     );
   }
