@@ -11,7 +11,7 @@ function Footer() {
         <div>
           <p className="text-xs mb-2 ">Fizikadolgozatok könnyedén!</p>
           <p className="text-xs">
-            KÉSZÜL BAJAN ÁLTAL ESKÜ ODA IS MEGY A PÉNZ MEG MINDEN, ŐT KELL ÉRTE
+            KÉSZÜL BAJÁN ÁLTAL ESKÜ ODA IS MEGY A PÉNZ MEG MINDEN, ŐT KELL ÉRTE
             MEGVERNI!!!!
           </p>
         </div>
