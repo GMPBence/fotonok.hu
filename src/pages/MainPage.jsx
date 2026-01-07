@@ -37,10 +37,54 @@ const MainPage = () => {
           </div>
         </div>
         <div className="flex flex-row gap-10 px-25 mt-10 justify-evenly max-w-400">
-          <Card title="Cigányok származása" src="https://placehold.co/250x150" />
-          <Card title="Cigányok származása" src="https://placehold.co/250x150" />
-          <Card title="Cigányok származása" src="https://placehold.co/250x150" />
-          <Card title="Cigányok származása" src="https://placehold.co/250x150" />
+          <Card
+            title="Cigányok származása"
+            src="https://placehold.co/250x150"
+            desc="Lorem ipsum dolor sit amet consectetur adipisicing elit. "
+            price="250"
+            content={[
+              "Cigányok származása",
+              "Cigányok származása",
+              "Cigányok származása",
+              "Cigányok származása",
+            ]}
+          />
+          <Card
+            title="Cigányok származása"
+            src="https://placehold.co/250x150"
+            desc="Lorem ipsum dolor sit amet consectetur adipisicing elit. "
+            price="250"
+            content={[
+              "Cigányok származása",
+              "Cigányok származása",
+              "Cigányok származása",
+              "Cigányok származása",
+            ]}
+          />
+          <Card
+            title="Cigányok származása"
+            src="https://placehold.co/250x150"
+            desc="Lorem ipsum dolor sit amet consectetur adipisicing elit. "
+            price="250"
+            content={[
+              "Cigányok származása",
+              "Cigányok származása",
+              "Cigányok származása",
+              "Cigányok származása",
+            ]}
+          />
+          <Card
+            title="Cigányok származása"
+            src="https://placehold.co/250x150"
+            desc="Lorem ipsum dolor sit amet consectetur adipisicing elit. "
+            price="250"
+            content={[
+              "Cigányok származása",
+              "Cigányok származása",
+              "Cigányok származása",
+              "Cigányok származása",
+            ]}
+          />
         </div>
       </div>
       <Footer />
