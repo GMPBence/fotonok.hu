@@ -5,7 +5,7 @@ function Card(props) {
   if (props.type === "big") {
     const items = props.content;
     return (
-      <div className=" border-2 border-primary rounded-xl w-62.5 overflow-hidden relative">
+      <div className=" border-3 border-primary rounded-xl w-62.5 overflow-hidden relative hover:scale-105 transition-all hover:border-[#FE6A01]">
         {props.popular === true && (
           <div className="bg-[#FE6A01] font-bowlby rounded-2xl absolute top-3 left-3 px-5 py-2 text-white text-xs font-extralight">
             Népszerű
@@ -46,7 +46,7 @@ function Card(props) {
     );
   } else if (props.type === "small") {
     return (
-      <div className="bg-primary w-62.5 rounded-xl px-10 py-5 text-center text-white">
+      <div className="bg-primary w-62.5 rounded-xl px-10 py-5 text-center text-white hover:-translate-y-5 transition-all hover:border-[#FE6A01]">
         <h2 className="border-b-highlight border-b-2 pb-2 mb-3">
           {props.title}
         </h2>

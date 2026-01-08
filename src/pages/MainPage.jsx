@@ -19,7 +19,7 @@ const MainPage = () => {
           </h2>
           <div className="flex flex-row gap-2">
             <Button text="Jegyzetek" type="main" href="#notes" />
-            <Button text="Hogyan működik?" type="main" href="#howItWorks" />
+            <Button text="Hogyan működik?" type="how" href="#howItWorks" />
           </div>
         </div>
         <img src={LaptopImage} className=" w-120" alt="" />

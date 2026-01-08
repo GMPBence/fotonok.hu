@@ -10,7 +10,7 @@ function Navbar() {
         <div className="w-95">
           <SearchBar />
         </div>
-        <div className="w-25">
+        <div className="">
           <Button type="primary" text="Profil" />
         </div>
       </div>
