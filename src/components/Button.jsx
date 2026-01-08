@@ -2,7 +2,7 @@ function Button(props) {
   if (props.type === "primary") {
     return (
       <>
-        <button className="bg-secondary text-light py-2 px-15 rounded-2xl flex items-center justify-center w-full text-center cursor-pointer hover:bg-primaryHover transition-all">
+        <button className="bg-secondary text-light py-2 px-15 rounded-2xl flex items-center justify-center w-full text-center cursor-pointer hover:bg-primaryHover transition-all text-white">
           {props.text}
         </button>
       </>
