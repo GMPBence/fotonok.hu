@@ -29,6 +29,11 @@ function Button(props) {
       </a>
     );
   }
+  if (props.type==="login"){
+    return(
+      <button>{props.text}</button>
+    )
+  }
 
   return (
     <>

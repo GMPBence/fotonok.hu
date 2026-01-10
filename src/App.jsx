@@ -1,17 +1,15 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MainPage from "./pages/MainPage";
+import LoginPage from "./pages/LoginPage";
 
 function App() {
-  const atRoot = window.location.pathname === "/";
   const authenticated = true;
-  if (!atRoot) {
-    return <ErrorPage />;
-  }
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<MainPage authenticated={authenticated}/>} />
+        <Route path="/" element={<MainPage authenticated={authenticated} />} />
+        <Route path="/LoginPage" element={<LoginPage />} />
       </Routes>
     </BrowserRouter>
   );
