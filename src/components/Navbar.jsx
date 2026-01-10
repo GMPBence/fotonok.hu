@@ -37,7 +37,7 @@ function Navbar(props) {
           <SearchBar />
         </div>
         <div className="">
-          <Link to="/LoginPage"><Button type="primary" text="Profil" /></Link>
+          <Link to="/Login"><Button type="primary" text="Profil" /></Link>
         </div>
       </div>
 

@@ -31,7 +31,7 @@ function Button(props) {
   }
   if (props.type==="login"){
     return(
-      <button className="text-white py-2 text-center border-white border rounded-xl bg-input-gray ">{props.text}</button>
+      <button className="text-white py-2 text-center border-white border rounded-xl bg-input-gray font-bold ">{props.text}</button>
     )
   }
 

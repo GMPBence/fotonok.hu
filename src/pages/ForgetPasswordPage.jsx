@@ -11,15 +11,9 @@ const LoginPage = () => {
         </h1>
         <Input type="Email" />
         <div className="flex flex-col gap-1">
-            <Input type="Jelszó" />
-            <Link to="/ForgetPassword" className="text-white ">
-              Elfelejtetted a jelszavad? Kattints ide!
-            </Link>
-        </div>
-        <div className="flex flex-col gap-1">
-          <Button type="login" text="Bejelentkezés" />
-          <Link to="/Register" className="text-white">
-            Új vagy itt? Regisztráció
+          <Button type="login" text="Elfelejtettem a jelszavam" />
+          <Link to="/Login" className="text-white">
+            Mégis tudod a jelszavad? Bejelentkezés
           </Link>
         </div>
       </div>

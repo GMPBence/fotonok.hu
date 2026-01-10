@@ -14,7 +14,7 @@ const LoginPage = () => {
         <Input type="Jelszó mégegyszer" />
         <div className="flex flex-col gap-1">
           <Button type="login" text="Regisztráció" />
-          <Link to="/LoginPage" className="text-white">
+          <Link to="/Login" className="text-white">
             Már regisztráltál? Bejelentkezés
           </Link>
         </div>
