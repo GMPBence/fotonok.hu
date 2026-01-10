@@ -10,16 +10,12 @@ const LoginPage = () => {
           fotonok.<span className="text-highlight">hu</span>
         </h1>
         <Input type="Email" />
+        <Input type="Jelszó" />
+        <Input type="Jelszó mégegyszer" />
         <div className="flex flex-col gap-1">
-            <Input type="Jelszó" />
-            <Link to="ForgetPassword" className="text-white ">
-              Elfelejtetted a jelszavad? Kattints ide!
-            </Link>
-        </div>
-        <div className="flex flex-col gap-1">
-          <Button type="login" text="Bejelentkezés" />
-          <Link to="/RegisterPage" className="text-white">
-            Új vagy itt? Regisztráció
+          <Button type="login" text="Regisztráció" />
+          <Link to="/LoginPage" className="text-white">
+            Már regisztráltál? Bejelentkezés
           </Link>
         </div>
       </div>
