@@ -2,7 +2,7 @@ function Button(props) {
   if (props.type === "primary") {
     return (
       <>
-        <button className="bg-secondary text-light py-2 px-15 rounded-2xl flex items-center justify-center w-full text-center cursor-pointer hover:bg-primaryHover transition-all text-white">
+        <button className="bg-secondary  py-2 px-15 rounded-2xl flex items-center justify-center w-full text-center cursor-pointer hover:bg-primaryHover transition-all text-white">
           {props.text}
         </button>
       </>
@@ -10,7 +10,7 @@ function Button(props) {
   }
   if (props.type === "main") {
     return (
-      <a 
+      <a
         href={props.href}
         className="bg-secondary  text-white py-2 px-3 rounded-2xl flex items-center justify-center w-full text-center cursor-pointer hover:bg-primaryHover transition-all"
       >
@@ -21,9 +21,9 @@ function Button(props) {
 
   if (props.type === "how") {
     return (
-      <a 
+      <a
         href={props.href}
-        className="bg-button-light border-2  border-[#111F46] text-white py-2 px-7 rounded-2xl flex items-center justify-center w-full text-center cursor-pointer hover:bg-primaryHover transition-all"
+        className="bg-button-light border-2  border-secondary text-white py-2 px-7 rounded-2xl flex items-center justify-center w-full text-center cursor-pointer hover:bg-primaryHover transition-all"
       >
         {props.text}
       </a>

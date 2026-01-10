@@ -5,10 +5,10 @@ import Button from "../components/Button";
 import LaptopImage from "../assets/images/laptop.png";
 import SearchBar from "../components/SearchBar";
 import Card from "../components/Card";
-const MainPage = () => {
+const MainPage = (props) => {
   return (
     <div className="flex flex-col  w-full overflow-x-hidden">
-      <Navbar />
+      <Navbar authenticated={props.authenticated} />
       <div className="w-full flex flex-col lg:flex-row justify-between items-center max-w-300 px-10 mx-auto mt-15 lg:mt-4">
         <div className="flex-col flex max-w-100 gap-3 mb-10 lg:mb-0">
           <h1 className="text-3xl text-primary font-extrabold">
