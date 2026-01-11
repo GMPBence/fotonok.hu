@@ -11,7 +11,7 @@ const ChangePasswordPage = (props) => {
           <h1 className="text-4xl font-bold">Jelszó váltás</h1>
           <div className="bg-highlight h-1 mt-0.5 rounded-2xl w-[50%]"></div>
         </div>
-        <div className="flex flex-col gap-6 w-100">
+        <div className="flex flex-col gap-6 sm:w-100">
           <Input color="light" type="Jelenlegi jelszó" />
           <Input color="light" type="Új jelszó" />
           <Input color="light" type="Új jelszó újra" />
