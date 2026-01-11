@@ -13,13 +13,13 @@ function Navbar(props) {
 
   return (
     <div className="bg-primary h-20 px-12 py-5 flex flex-row justify-between items-center">
-      <h1 className="text-white font-bold text-3xl">
+      <Link to="/" className="text-white font-bold text-3xl">
         fotonok.<span className="text-highlight">hu</span>
-      </h1>
+      </Link>
       <div className=" hidden lg:flex flex-row gap-6 items-center font-bold">
         {props.authenticated ? (
           <Link
-            to="/asd"
+            to="/ChangePassword"
             className="text-white relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full"
           >
             Jelszó váltás
@@ -27,7 +27,7 @@ function Navbar(props) {
         ) : null}
         {props.authenticated ? (
           <Link
-            to="/asd"
+            to="/notes"
             className="text-white relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full"
           >
             Jegyzeteim

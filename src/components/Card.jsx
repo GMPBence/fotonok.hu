@@ -44,13 +44,25 @@ function Card(props) {
         </div>
       </div>
     );
-  } else if (props.type === "small") {
+  }
+  if (props.type === "small") {
     return (
       <div className="bg-primary w-62.5 rounded-xl px-10 py-5 text-center text-white hover:-translate-y-5 transition-all hover:border-[#FE6A01]">
         <h2 className="border-b-highlight border-b-2 pb-2 mb-3">
           {props.title}
         </h2>
         <p className="font-bold">{props.content}</p>
+      </div>
+    );
+  }
+  if (props.type === "note") {
+    return (
+      <div className="bg-primary rounded-xl text-white flex flex-row justify-between p-7 items-center w-full">
+        <h1>{props.title}</h1>
+        <div className="flex flex-row items-center gap-3">
+          <p>{props.size}</p>
+          <Button type="primary" text="Letöltés" />
+        </div>
       </div>
     );
   }
