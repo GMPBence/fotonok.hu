@@ -4,6 +4,7 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import ForgetPasswordPage from "./pages/ForgetPasswordPage";
 import ForgetPasswordCodePage from "./pages/ForgetPasswordCodePage";
+import ChangePasswordPage from "./pages/ChangePasswordPage";
 
 function App() {
   const authenticated = true;
@@ -16,6 +17,7 @@ function App() {
         <Route path="/Register" element={<RegisterPage />} />
         <Route path="/ForgetPassword" element={<ForgetPasswordPage />} />
         <Route path="/ForgetPassword/code" element={<ForgetPasswordCodePage />} />
+        <Route path="/ChangePassword" element={<ChangePasswordPage authenticated={authenticated} />} />
       </Routes>
     </BrowserRouter>
   );

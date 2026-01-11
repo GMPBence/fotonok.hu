@@ -29,12 +29,16 @@ function Button(props) {
       </a>
     );
   }
-  if (props.type==="login"){
-    return(
-      <button className="text-white py-2 text-center border-white border rounded-xl bg-input-gray font-bold ">{props.text}</button>
-    )
+  if (props.type === "login") {
+    return (
+      <button className="text-white py-2 text-center border-white border rounded-xl bg-input-gray font-bold ">
+        {props.text}
+      </button>
+    );
   }
-
+  if (props.type === "changePass") {
+    return <button className="bg-[#E7E7E7] text-[#828282] px-4 py-2 text-xl font-bold rounded-md w-full">{props.text}</button>;
+  }
   return (
     <>
       <button>{props.text}</button>
