@@ -7,6 +7,7 @@ import ForgetPasswordCodePage from "./pages/ForgetPasswordCodePage";
 import ChangePasswordPage from "./pages/ChangePasswordPage";
 import NotesPage from "./pages/NotesPage";
 import SuccessfulPaymentPage from "./pages/SuccessfulPaymentPage"
+import PaymentPage from "./pages/PaymentPage"
 import { isAuthenticated } from "./app/auth";
 import { useState } from "react";
 
@@ -53,6 +54,14 @@ function App() {
             <PrivateRoute>
               <SuccessfulPaymentPage authenticated={authenticated} />
             </PrivateRoute>
+          }
+        />
+         <Route
+          path="/payment"
+          element={
+            // <PrivateRoute>
+              <PaymentPage authenticated={authenticated} />
+            // </PrivateRoute>
           }
         />
       </Routes>
