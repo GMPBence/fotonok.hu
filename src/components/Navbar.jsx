@@ -19,7 +19,7 @@ function Navbar(props) {
       <div className=" hidden lg:flex flex-row gap-6 items-center font-bold">
         {props.authenticated ? (
           <Link
-            to="/ChangePassword"
+            to="/changepassword"
             className="text-white relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full"
           >
             Jelszó váltás
@@ -37,7 +37,7 @@ function Navbar(props) {
           <SearchBar />
         </div>
         <div className="">
-          <Link to="/Login"><Button type="primary" text="Profil" /></Link>
+          <Link to="/login"><Button type="primary" text="Profil" /></Link>
         </div>
       </div>
 
@@ -71,7 +71,7 @@ function Navbar(props) {
 
         {props.authenticated ? (
           <Link
-            to="/ChangePassword"
+            to="/changepassword"
             className="text-white relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full"
           >
             Jelszó váltás

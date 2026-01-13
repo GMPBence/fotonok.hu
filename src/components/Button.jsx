@@ -31,7 +31,7 @@ function Button(props) {
   }
   if (props.type === "login") {
     return (
-      <button className="text-white py-2 text-center border-white border rounded-xl bg-input-gray font-bold ">
+      <button className="text-white py-2 text-center border-white border rounded-xl bg-input-gray font-bold hover:bg-white hover:text-black transition-all w-full cursor-pointer" onClick={props.onClick}>
         {props.text}
       </button>
     );
