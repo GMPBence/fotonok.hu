@@ -9,10 +9,10 @@ const PaymentPage = (props) => {
       <Navbar authenticated={props.authenticated} />
       <div className="flex flex-col justify-center items-center gap-7 px-2">
         <div className="flex flex-col items-center">
-          <h1 className="text-4xl font-extrabold">Vásárlás összegzés</h1>
+          <h1 className="text-4xl font-extrabold text-center">Vásárlás összegzés</h1>
           <div className="bg-highlight h-1 mt-1 rounded-2xl w-[50%]"></div>
         </div>
-        <div className="flex flex-row gap-30">
+        <div className="flex flex-col sm:flex-row gap-10 sm:gap-30">
           <Card
             title="Cigányok származása"
             src="https://placehold.co/250x150"
