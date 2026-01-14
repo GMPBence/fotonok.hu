@@ -60,7 +60,7 @@ function App() {
           path="/payment"
           element={
             // <PrivateRoute>
-              <PaymentPage authenticated={authenticated} />
+              <PaymentPage authenticated={authenticated} price={123}/>
             // </PrivateRoute>
           }
         />

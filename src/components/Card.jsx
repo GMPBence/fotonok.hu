@@ -66,5 +66,46 @@ function Card(props) {
       </div>
     );
   }
+  if (props.type === "payment") {
+    const items = props.content;
+    return (
+      <div className=" border-3 border-primary rounded-xl w-62.5 overflow-hidden relative hover:scale-105 transition-all hover:border-[#FE6A01]">
+        {props.popular === true && (
+          <div className="bg-[#FE6A01] font-bowlby rounded-2xl absolute top-3 left-3 px-5 py-2 text-white text-xs font-extralight">
+            Népszerű
+          </div>
+        )}
+        {props.new === true && (
+          <div className="bg-[#FE6A01] font-bowlby rounded-2xl absolute top-3 left-3 px-5 py-2 text-white text-xs font-extralight">
+            Új
+          </div>
+        )}
+        <img src={props.src} alt="" />
+        <div className="bg-primary text-white p-5 ">
+          <h2 className="border-b-highlight border-b-2 w-fit pe-2 mb-3 font-bold">
+            {props.title}
+          </h2>
+          <div className="" style={{ listStyle: "none", paddingLeft: "0" }}>
+            {items.map((item, index) => (
+              <li
+                key={index}
+                className="text-sm"
+                style={{
+                  backgroundImage: `url(${listImage})`,
+                  backgroundSize: "7px 7px",
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "0 6px",
+                  paddingLeft: "12px",
+                }}
+              >
+                {item}
+              </li>
+            ))}
+          </div>
+          <p className="text-sm mt-2">{props.desc}</p>
+        </div>
+      </div>
+    );
+  }
 }
 export default Card;
