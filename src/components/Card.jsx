@@ -1,7 +1,28 @@
 import Button from "./Button";
 import listImage from "../assets/images/list-image.png";
+import api from "../app/api";
 
 function Card(props) {
+  const handleDownload = async (noteId) => {
+      try {
+        const res = await api.get("/plans/download?id=" + noteId, {
+          responseType: 'blob',
+        });
+        const url = window.URL.createObjectURL(new Blob([res.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', 'jegyzet.pdf');
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        if (res.status === 200) {
+          console.log("Jegyzet letöltve!");
+        }
+      } catch (err) {
+        console.error("Hiba a jegyzet letöltésekor:", err);
+      }
+  }
+
   if (props.type === "big") {
     const items = props.content;
     return (
@@ -40,7 +61,7 @@ function Card(props) {
           </div>
           <p className="text-sm mt-2">{props.desc}</p>
           <h1 className="text-center my-2 font-bold">Ár: {props.price} Ft</h1>
-          <Button type="main" text="Vásárlás" />
+          <Button href={"/payment?id=" + props.noteId} type="main" text="Vásárlás" />
         </div>
       </div>
     );
@@ -57,11 +78,11 @@ function Card(props) {
   }
   if (props.type === "note") {
     return (
-      <div className="bg-primary rounded-xl text-white flex flex-row justify-between p-7 items-center w-full">
+      <div id={props.id} className="bg-primary rounded-xl text-white flex flex-row justify-between p-7 items-center w-full">
         <h1>{props.title}</h1>
         <div className="flex flex-row items-center gap-3">
           <p>{props.size}</p>
-          <Button type="primary" text="Letöltés" />
+          <Button type="primary" text="Letöltés" onClick={handleDownload.bind(this, props.id)} />
         </div>
       </div>
     );

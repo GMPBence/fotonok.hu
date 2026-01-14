@@ -4,7 +4,24 @@ import Button from "../components/Button";
 import LaptopImage from "../assets/images/laptop.png";
 import SearchBar from "../components/SearchBar";
 import Card from "../components/Card";
+import { useEffect, useState } from "react";
+import api from "../app/api";
 const MainPage = (props) => {
+  const [plans, setPlans] = useState([]);
+
+  const fetchPlans = async () => {
+    try {
+      const res = await api.get("/plans/get/all");
+      setPlans(res.data.notes);
+    } catch (err) {
+      console.error("Hiba a csomagok lekérésekor:", err);
+    }
+  };
+
+  useEffect(() => {
+    fetchPlans();
+  }, []);
+
   return (
     <div className="flex flex-col  w-full overflow-x-hidden">
       <Navbar authenticated={props.authenticated} />
@@ -38,60 +55,18 @@ const MainPage = (props) => {
           </div>
         </div>
         <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-12.5 px-25 mt-10 justify-evenly max-w-400">
-          <Card
-            title="Cigányok származása"
-            src="https://placehold.co/250x150"
-            desc="Lorem ipsum dolor sit amet consectetur adipisicing elit. "
-            price="250"
-            type="big"
-            popular={true}
-            content={[
-              "Cigányok származása",
-              "Cigányok származása",
-              "Cigányok származása",
-              "Cigányok származása",
-            ]}
-          />
-
-          <Card
-            title="Cigányok származása"
-            src="https://placehold.co/250x150"
-            desc="Lorem ipsum dolor sit amet consectetur adipisicing elit. "
-            price="250"
-            type="big"
-            content={[
-              "Cigányok származása",
-              "Cigányok származása",
-              "Cigányok származása",
-              "Cigányok származása",
-            ]}
-          />
-          <Card
-            title="Cigányok származása"
-            src="https://placehold.co/250x150"
-            desc="Lorem ipsum dolor sit amet consectetur adipisicing elit. "
-            price="250"
-            type="big"
-            content={[
-              "Cigányok származása",
-              "Cigányok származása",
-              "Cigányok származása",
-              "Cigányok származása",
-            ]}
-          />
-          <Card
-            title="Cigányok származása"
-            src="https://placehold.co/250x150"
-            desc="Lorem ipsum dolor sit amet consectetur adipisicing elit. "
-            price="250"
-            type="big"
-            content={[
-              "Cigányok származása",
-              "Cigányok származása",
-              "Cigányok származása",
-              "Cigányok származása",
-            ]}
-          />
+          {plans.map((plan) => (
+            <Card
+              key={plan.note_id}
+              title={plan.title}
+              src="https://placehold.co/250x150"
+              desc={plan.description}
+              price={plan.price}
+              type="big"
+              content={JSON.parse(plan.summary)}
+              noteId={plan.note_id}
+            />
+          ))}
         </div>
         <div className="bg-primary w-[300%] -ms-10 h-25 my-20 rotate-358"></div>
         <div className="max-w-100 flex flex-col items-center">

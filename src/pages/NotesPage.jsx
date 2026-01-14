@@ -1,7 +1,26 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Card from "../components/Card";
+import { useEffect, useState } from "react";
+import api from "../app/api";
 const NotesPage = (props) => {
+  const [plans, setPlans] = useState();
+
+  const fetchPlans = async () => {
+    try {
+      console.log("/plans/get/user")
+      const res = await api.get("/plans/get/user");
+      console.log(res.data.notes);
+      setPlans(res.data.notes);
+    } catch (err) {
+      console.error("Hiba a csomagok lekérésekor:", err);
+    }
+  };
+
+  useEffect(() => {
+    fetchPlans();
+  }, []);
+
   return (
     <div className="flex flex-col min-h-screen justify-between gap-3 w-full overflow-x-hidden">
       <Navbar authenticated={props.authenticated} />
@@ -11,10 +30,11 @@ const NotesPage = (props) => {
           <div className="bg-highlight h-1 mt-1 rounded-2xl w-[50%]"></div>
         </div>
         <div className="sm:w-150 flex gap-5 flex-col">
-          <Card type="note" title="aasd" size="12Tb" />
-          <Card type="note" title="aasd" size="12Tb" />
-          <Card type="note" title="aasd" size="12Tb" />
-          <Card type="note" title="aasd" size="12Tb" />
+          {plans && plans.length > 0 ? plans.map((plan) => (
+              <Card type="note" key={plan.note_id} title={plan.title} size={plan.file_size} id={plan.note_id} />
+            )) : <>
+            <h2 className="text-center text-xl">Még nincsenek jegyzeteid. Vásárolj most, és kezd el tanulni!</h2>
+          </>}
         </div>
       </div>
       <Footer />

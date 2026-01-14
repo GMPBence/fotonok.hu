@@ -16,8 +16,10 @@ api.interceptors.response.use(
     res => res,
     err => {
         if (err.response?.status === 401) {
-        localStorage.removeItem("token");
-        window.location.href = "/login";
+            localStorage.removeItem("token");
+            window.location.href = "/login";
+        } else if (err.response.data.error === "user_already_has_note") {
+            alert("Már megvásároltad ezt a jegyzetet.");
         }
         return Promise.reject(err);
     }

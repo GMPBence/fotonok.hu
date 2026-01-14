@@ -10,6 +10,11 @@ function Navbar(props) {
     setActive(!isActive);
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    window.location.reload();
+  };
+
   return (
     <div className="bg-primary h-20 px-12 py-5 flex flex-row justify-between items-center">
       <Link to="/" className="text-white font-bold text-3xl">
@@ -36,9 +41,12 @@ function Navbar(props) {
           <SearchBar />
         </div>
         <div className="">
-          <Link to="/login">
-            <Button type="primary" text="Profil" />
-          </Link>
+          {props.authenticated ? <Button type="primary" text="Kijelentkezés" onClick={handleLogout} /> : (
+            <Link to="/login">
+              <Button type="primary" text="Profil" />
+            </Link>
+          )
+          }
         </div>
       </div>
 
@@ -89,14 +97,20 @@ function Navbar(props) {
           </Link>
         ) : null}
 
-        {props.authenticated ? (
+        {props.authenticated ? <Link
+            to="/login"
+            onClick={handleLogout}
+            className="text-white relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full"
+          >
+            Kijelentkezés
+          </Link> :  (
           <Link
             to="/login"
             className="text-white relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full"
           >
             Profil
           </Link>
-        ) : null}
+        )}
       </div>
     </div>
   );
