@@ -3,7 +3,6 @@ import Button from "./Button";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
-
 function Navbar(props) {
   const [isActive, setActive] = useState(false);
 
@@ -37,7 +36,9 @@ function Navbar(props) {
           <SearchBar />
         </div>
         <div className="">
-          <Link to="/login"><Button type="primary" text="Profil" /></Link>
+          <Link to="/login">
+            <Button type="primary" text="Profil" />
+          </Link>
         </div>
       </div>
 
@@ -63,7 +64,9 @@ function Navbar(props) {
       </div>
 
       <div
-        className={`absolute top-20 px-5 left-0 h-50 w-full bg-primary flex-col items-center gap-5 text-white transition-all duration-300 ${
+        className={`absolute top-20 z-1000 ${
+          props.isAuthenticated ? "h-50" : "h-20"
+        } px-5 left-0  w-full  bg-primary flex-col items-center gap-5 text-white transition-all duration-300 ${
           isActive ? "flex" : "hidden"
         }`}
       >
