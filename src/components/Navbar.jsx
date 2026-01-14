@@ -14,7 +14,6 @@ function Navbar(props) {
     localStorage.removeItem("token");
     window.location.reload();
   };
-
   return (
     <div className="bg-primary h-20 px-12 py-5 flex flex-row justify-between items-center">
       <Link to="/" className="text-white font-bold text-3xl">
@@ -73,7 +72,7 @@ function Navbar(props) {
 
       <div
         className={`absolute top-20 z-1000 ${
-          props.isAuthenticated ? "h-50" : "h-20"
+          props.authenticated ? "h-50" : "h-20"
         } px-5 left-0  w-full  bg-primary flex-col items-center gap-5 text-white transition-all duration-300 ${
           isActive ? "flex" : "hidden"
         }`}
