@@ -3,29 +3,74 @@ import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import { useState } from "react";
 import api from "../app/api";
+import { useLoading } from "../context/LoadingContext";
+import Swal from "sweetalert2";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
+  const {setIsLoading} = useLoading()
   const handleForgotPassword = async () => {
+    setIsLoading(true)
     if (!email) {
-      alert("Kérlek add meg az email címed!");
+      Swal.fire({
+        icon: 'error',
+        title: 'Hiba történt jelszóváltásズben',
+        text: 'Minden mező kötelező',
+        showConfirmButton: true
+      })
+      setIsLoading(false)
       return;
     }
     try {
       const res = await api.post("/auth/forgotpassword", {
         email
       });
-
+      setIsLoading(false)
       if (res.data.message) {
         localStorage.setItem("email", email);
-        navigate("/forgotpassword/complete");
-      } else {
-        alert("Hiba történt jelszóváltás közben");
+        Swal.fire({
+          icon: 'success',
+          title: 'Sikeresen elküldted az emailt',
+          text: 'A jelszóváltáshoz tartozó kódot a megadott emailcímre kiküldtük',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        setTimeout(() => {
+          navigate("/forgotpassword/complete");
+        }, 1500);
       }
     } catch (err) {
-      console.log(err);
-      alert("Hiba történt jelszóváltás közben");
+      if (err?.response?.data?.error === "missing_data") {
+        Swal.fire({
+          icon: 'error',
+          title: 'Hiba történt a jelszó változtatáskor',
+          text: 'Minden mező kötelező',
+          showConfirmButton: true,
+        })
+      } else if (err?.response?.data?.error === "invalid_credentials") {
+        Swal.fire({
+          icon: 'error',
+          title: 'Hiba történt a jelszó változtatáskor',
+          text: 'A megadott emailcím nem letezik a rendszerünkben',
+          showConfirmButton: true,
+        })
+      } else if (err?.response?.data?.error === "internal") {
+        Swal.fire({
+          icon: 'error',
+          title: 'Hiba történt a jelszó változtatáskor',
+          text: 'Szerverhiba, próbáld meg késöbb',
+          showConfirmButton: true,
+        })
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Hiba történt a jelszó változtatáskor',
+          text: err?.response?.data?.error,
+          showConfirmButton: true,
+        })
+      }
+      setIsLoading(false)
     }
       
   }

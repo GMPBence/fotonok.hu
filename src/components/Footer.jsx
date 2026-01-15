@@ -10,9 +10,8 @@ function Footer() {
       <div className="text-white flex flex-row justify-between pt-2">
         <div>
           <p className="text-xs mb-2 ">Fizikadolgozatok könnyedén!</p>
-          <p className="text-xs">
-            KÉSZÜL BAJÁN ÁLTAL ESKÜ ODA IS MEGY A PÉNZ MEG MINDEN, ŐT KELL ÉRTE
-            MEGVERNI!!!!
+          <p className="text-xs italic">
+            — Bajan & Ráb —
           </p>
         </div>
         <div>

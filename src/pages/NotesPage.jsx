@@ -3,17 +3,26 @@ import Footer from "../components/Footer";
 import Card from "../components/Card";
 import { useEffect, useState } from "react";
 import api from "../app/api";
+import { useLoading } from "../context/LoadingContext";
+import Swal from "sweetalert2";
 const NotesPage = (props) => {
   const [plans, setPlans] = useState();
+  const {setIsLoading} = useLoading()
 
   const fetchPlans = async () => {
     try {
-      console.log("/plans/get/user")
+      setIsLoading(true)
       const res = await api.get("/plans/get/user");
-      console.log(res.data.notes);
       setPlans(res.data.notes);
+      setIsLoading(false)
     } catch (err) {
-      console.error("Hiba a csomagok lekérésekor:", err);
+      Swal.fire({
+        icon: 'error',
+        title: 'Hiba a jegyzetek lekérsekor',
+        text: err?.response?.data?.error,
+        showConfirmButton: true
+      })
+      setIsLoading(false)
     }
   };
 
@@ -33,7 +42,7 @@ const NotesPage = (props) => {
           {plans && plans.length > 0 ? plans.map((plan) => (
               <Card type="note" key={plan.note_id} title={plan.title} size={plan.file_size} id={plan.note_id} />
             )) : <>
-            <h2 className="text-center text-xl">Még nincsenek jegyzeteid. Vásárolj most, és kezd el tanulni!</h2>
+            <h2 className="text-center text-xl">Még nincsenek jegyzeteid. Vásárolj most, és kezdj el tanulni!</h2>
           </>}
         </div>
       </div>

@@ -3,21 +3,37 @@ import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import { useState } from "react";
 import api from "../app/api";
+import { useLoading } from "../context/LoadingContext";
+import Swal from "sweetalert2";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
   const navigate = useNavigate();
+  const {setIsLoading} = useLoading()
 
   const handleRegister = async () => {
+    setIsLoading(true)
     if (!email || !password || !password2) {
-      alert("Minden mező kötelező");
+      Swal.fire({
+        icon: 'error',
+        title: 'Hiba történt a regisztrációkor',
+        text: 'Minden mező kötelező',
+        showConfirmButton: true
+      })
+      setIsLoading(false)
       return;
     }
 
     if (password !== password2) {
-      alert("A jelszavak nem egyeznek");
+      Swal.fire({
+        icon: 'error',
+        title: 'Hiba történt a regisztrációkor',
+        text: 'A jelszavak nem egyeznek',
+        showConfirmButton: true
+      })
+      setIsLoading(false)
       return;
     }
 
@@ -26,15 +42,77 @@ const LoginPage = () => {
         email,
         password,
       });
-
+      setIsLoading(false)
       if (res.data.message) {
-        navigate("/login");
-      } else {
-        alert("Hiba történt regisztráció közben");
+        Swal.fire({
+          icon: 'success',
+          title: 'Sikeres regisztráció',
+          showConfirmButton: false,
+          timer: 1500
+        });
+        setTimeout(() => {
+          navigate("/login");
+        }, 1500);
       }
     } catch (err) {
-      console.log(err);
-      alert("Hiba történt regisztráció közben");
+      if (err?.response?.data?.error === "missing_data") {
+        Swal.fire({
+          icon: 'error',
+          title: 'Hiba történt a regisztrációkor',
+          text: 'Minden mező kötelező',
+          showConfirmButton: true,
+        })
+      } else if (err?.response?.data?.error === "email_too_long") {
+        Swal.fire({
+          icon: 'error',
+          title: 'Hiba történt a regisztrációkor',
+          text: 'Az email hossza maximum 255 karakter lehet',
+          showConfirmButton: true,
+        })
+      } else if (err?.response?.data?.error === "password_too_short") {
+        Swal.fire({
+          icon: 'error',
+          title: 'Hiba történt a regisztrációkor',
+          text: 'A jelszó hossza minimum 3 karakter kell',
+          showConfirmButton: true,
+        })
+      } else if (err?.response?.data?.error === "password_too_long") {
+        Swal.fire({
+          icon: 'error',
+          title: 'Hiba történt a regisztrációkor',
+          text: 'A jelszó hossza maximum 255 karakter lehet',
+          showConfirmButton: true,
+        })
+      } else if (err?.response?.data?.error === "already_taken") {
+        Swal.fire({
+          icon: 'error',
+          title: 'Hiba történt a regisztrációkor',
+          text: 'Ez az email cím már regisztrálva van',
+          showConfirmButton: true,
+        })
+      } else if (err?.response?.data?.error === "internal") {
+        Swal.fire({
+          icon: 'error',
+          title: 'Hiba történt a regisztrációkor',
+          text: 'Szerverhiba, próbáld újra késöbb',
+          showConfirmButton: true,
+        })
+      } else if (err?.response?.data?.error === "invalid_email_format") {
+        Swal.fire({
+          icon: 'error',
+          title: 'Hiba történt a regisztrációkor',
+          text: 'Ez az email cím nem helyes',
+          showConfirmButton: true,
+        })
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Hiba történt a regisztrációkor',
+          text: err?.response?.data?.error,
+          showConfirmButton: true,
+        })
+      }
+      setIsLoading(false)
     }
   };
   return (

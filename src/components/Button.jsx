@@ -37,7 +37,7 @@ function Button(props) {
     );
   }
   if (props.type === "changePass") {
-    return <button onClick={props.onClick} className="bg-[#E7E7E7] text-[#828282] px-4 py-2 text-xl font-bold rounded-md w-full">{props.text}</button>;
+    return <button onClick={props.onClick} className="bg-[#E7E7E7] text-[#828282] px-4 py-2 text-xl font-bold rounded-md w-full cursor-pointer hover:bg-[#a5a5a5] hover:text-[#E7E7E7] transition-all">{props.text}</button>;
   }
   return (
     <>

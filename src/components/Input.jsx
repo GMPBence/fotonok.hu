@@ -25,9 +25,11 @@ function Input(props) {
     return (
       <div>
         <input
-          type="text"
-          className="bg-input-gray text-[hsl(0,0%,70%)] px-4 py-2 text-xl font-bold rounded-md w-full"
-          placeholder={props.type}
+          value={props.value}
+          onChange={props.onChange}
+          type={props.type}
+          className="bg-[#E7E7E7] text-[hsl(0,0%,70%)] px-4 py-2 text-xl font-bold rounded-md w-full"
+          placeholder={props.placeholder}
         />
       </div>
     );

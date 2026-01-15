@@ -3,15 +3,25 @@ import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import { useState } from "react";
 import api from "../app/api";
+import { useLoading } from "../context/LoadingContext";
+import Swal from 'sweetalert2';
 
 const LoginPage = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const {setIsLoading} = useLoading()
 
   const handleLogin = async () => {
+    setIsLoading(true)
     if (!email || !password) {
-      alert("Minden mező kötelező");
+      Swal.fire({
+        icon: 'error',
+        title: 'Hiba történt bejelentkezésközben',
+        text: 'Minden mező kötelező',
+        showConfirmButton: true
+      })
+      setIsLoading(false)
       return;
     }
 
@@ -20,17 +30,45 @@ const LoginPage = (props) => {
         email,
         password
       });
-
+      setIsLoading(false)
       if (res.data.token) {
         localStorage.setItem("token", res.data.token);
         props.setAuthenticated(true);
-        navigate("/");
-      } else {
-        alert("Hiba történt bejelentkezés közben");
+        Swal.fire({
+          icon: 'success',
+          title: 'Sikeres bejelentkezés',
+          showConfirmButton: false,
+          timer: 1500
+        });
+        setTimeout(() => {
+          navigate("/");
+        }, 1500);
       }
     } catch (err) {
-      console.log(err);
-      alert("Hiba történt bejelentkezés közben");
+      console.log();
+      if (err?.response?.data?.error === "err_pass_or_user") {
+        Swal.fire({
+          icon: 'error',
+          title: 'Hiba történt bejelentkezésközben',
+          text: 'Helytelen email vagy jelszó',
+          showConfirmButton: true
+        })
+      } else if (err?.response?.data?.error === "internal") {
+        Swal.fire({
+          icon: 'error',
+          title: 'Hiba történt bejelentkezésközben',
+          text: 'Szerverhiba, próbáld újra késöbb',
+          showConfirmButton: true
+        })
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Hiba történt bejelentkezésközben',
+          text: err?.response?.data?.error,
+          showConfirmButton: true
+        })
+      }
+      setIsLoading(false)
     }
   };
 

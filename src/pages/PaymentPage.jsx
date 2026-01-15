@@ -5,19 +5,29 @@ import Card from "../components/Card";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import api from "../app/api";
+import { useLoading } from "../context/LoadingContext";
+import Swal from "sweetalert2";
 const PaymentPage = (props) => {
   const [plan, setPlan] = useState();
   const [payment, setPayment] = useState("");
+  const {setIsLoading} = useLoading()
 
   const fetchPlans = async () => {
     try {
+      setIsLoading(true)
       console.log("/plans/get?id=" + window.location.search.split("=")[1])
       const res = await api.get("/plans/get?id=" + window.location.search.split("=")[1]);
       console.log(res.data.note.img_path);
       setPlan(res.data.note);
-      
+      setIsLoading(false)
     } catch (err) {
-      console.error("Hiba a csomagok lekérésekor:", err);
+      Swal.fire({
+        icon: 'error',
+        title: 'Hiba a jegyzet lekérsekor',
+        text: err?.response?.data?.error,
+        showConfirmButton: true
+      })
+      setIsLoading(false)
     }
   };
 
@@ -26,17 +36,66 @@ const PaymentPage = (props) => {
   }, []);
 
   const handlePay = async () => {
-    if (!payment) {
-      alert("Kérlek válassz fizetési módot!");
-      return;
+    setIsLoading(true)
+    try {
+      if (!payment) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Hiba történt a vásárlás során',
+          text: 'Muszáj választani egy fizetési lehetőséget',
+          showConfirmButton: true
+        })
+        setIsLoading(false)
+        return;
+      }
+      const res = await api.post("/payment/checkout/" + payment, {
+        note_id: plan.note_id
+      });
+      console.log(res.data);
+      if (res.data.url) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Áttirányítás...',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        setTimeout(() => {
+          window.location.href = res.data.url;
+        }, 1500);
+      } 
+      setIsLoading(false)
+    } catch (err) {
+      if (err?.response?.data?.error === "user_already_has_note") {
+        Swal.fire({
+          icon: 'error',
+          title: 'Hiba történt a vásárlás során',
+          text: 'Már megvetted ezt a jegyzetet',          
+          showConfirmButton: true
+        })
+      } else if (err?.response?.data?.error === "missing_data"){
+        Swal.fire({
+          icon: 'error',
+          title: 'Hiba történt a vásárlás során',
+          text: 'A jegyzet azonosítólya hiányzik, kérlek próbáld újra',          
+          showConfirmButton: true
+        })
+      } else if (err?.response?.data?.error === "note_not_found"){
+        Swal.fire({
+          icon: 'error',
+          title: 'Hiba történt a vásárlás során',
+          text: 'Nincs ilyen jegyzet',          
+          showConfirmButton: true
+        })
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Hiba történt a vásárlás során',
+          text: err?.response?.data?.error,
+          showConfirmButton: true
+        })
+      }
+      setIsLoading(false)
     }
-    const res = await api.post("/payment/checkout/" + payment, {
-      note_id: plan.note_id
-    });
-    console.log(res.data);
-    if (res.data.url) {
-      window.location.href = res.data.url;
-    } 
   };
   return (
     <div className="flex flex-col min-h-screen justify-between gap-3 w-full overflow-x-hidden">
@@ -46,7 +105,8 @@ const PaymentPage = (props) => {
           <h1 className="text-4xl font-extrabold text-center">Vásárlás összegzés</h1>
           <div className="bg-highlight h-1 mt-1 rounded-2xl w-[50%]"></div>
         </div>
-        <div className="flex flex-col sm:flex-row gap-10 sm:gap-30">
+        {plan ? (<div className="flex flex-col sm:flex-row gap-10 sm:gap-30">
+          
           {plan ? <Card
               key={plan.note_id}
               title={plan.title}
@@ -82,7 +142,8 @@ const PaymentPage = (props) => {
               <Button type="primary" text="Fizetés" onClick={handlePay}/>
             </div>
           </div>
-        </div>
+        </div>) : <>Nincs ilyen csomag</>}
+        
       </div>
       <Footer />
     </div>

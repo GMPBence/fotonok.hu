@@ -1,9 +1,13 @@
 import Button from "./Button";
 import listImage from "../assets/images/list-image.png";
 import api from "../app/api";
+import { useLoading } from "../context/LoadingContext";
+import Swal from "sweetalert2";
 
 function Card(props) {
+  const {setIsLoading} = useLoading()
   const handleDownload = async (noteId) => {
+    setIsLoading(true)
       try {
         const res = await api.get("/plans/download?id=" + noteId, {
           responseType: 'blob',
@@ -15,11 +19,23 @@ function Card(props) {
         document.body.appendChild(link);
         link.click();
         link.remove();
+        setIsLoading(false)
         if (res.status === 200) {
-          console.log("Jegyzet letöltve!");
+          Swal.fire({
+            icon: 'success',
+            title: 'Sikeres letöltés',
+            showConfirmButton: false,
+            timer: 1500
+          })
         }
       } catch (err) {
-        console.error("Hiba a jegyzet letöltésekor:", err);
+        setIsLoading(false)
+        Swal.fire({
+          icon: 'error',
+          title: 'Hiba a jegyzet letöltéskor',
+          text: err?.response?.data?.error,
+          showConfirmButton: true
+        })
       }
   }
 

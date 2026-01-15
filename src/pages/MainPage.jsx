@@ -6,20 +6,31 @@ import SearchBar from "../components/SearchBar";
 import Card from "../components/Card";
 import { useEffect, useState } from "react";
 import api from "../app/api";
+import { useLoading } from "../context/LoadingContext";
+import Swal from "sweetalert2";
+
 const MainPage = (props) => {
   const [plans, setPlans] = useState([]);
+  const {setIsLoading, isLoading} = useLoading()
 
   const fetchPlans = async () => {
     try {
+      setIsLoading(true)
       const res = await api.get("/plans/get/all");
       setPlans(res.data.notes);
+      setIsLoading(false)
     } catch (err) {
-      console.error("Hiba a csomagok lekérésekor:", err);
+      Swal.fire({
+        icon: 'error',
+        title: 'Hiba a jegyzetek lekérsekor',
+        text: err?.response?.data?.error,
+        showConfirmButton: true
+      })
+      setIsLoading(false)
     }
-  };
-
-  useEffect(() => {
-    fetchPlans();
+  }
+  useEffect( () => {
+    fetchPlans()
   }, []);
 
   return (
