@@ -26,7 +26,7 @@ function Card(props) {
   if (props.type === "big") {
     const items = props.content;
     return (
-      <div className=" border-3 border-primary rounded-xl w-62.5 overflow-hidden relative hover:scale-105 transition-all hover:border-[#FE6A01]">
+      <div className="border-3 border-primary rounded-xl w-62.5 h-115 overflow-hidden relative hover:scale-105 transition-all hover:border-[#FE6A01] flex flex-col">
         {props.popular === true && (
           <div className="bg-[#FE6A01] font-bowlby rounded-2xl absolute top-3 left-3 px-5 py-2 text-white text-xs font-extralight">
             Népszerű
@@ -37,8 +37,8 @@ function Card(props) {
             Új
           </div>
         )}
-        <img src={props.src} alt="" />
-        <div className="bg-primary text-white p-5 ">
+        <img src={props.src} alt="" className="shrink-0" />
+        <div className="bg-primary flex-1 flex flex-col text-white p-5">
           <h2 className="border-b-highlight border-b-2 w-fit pe-2 mb-3 font-bold">
             {props.title}
           </h2>
@@ -60,8 +60,10 @@ function Card(props) {
             ))}
           </div>
           <p className="text-sm mt-2">{props.desc}</p>
-          <h1 className="text-center my-2 font-bold">Ár: {props.price} Ft</h1>
-          <Button href={"/payment?id=" + props.noteId} type="main" text="Vásárlás" />
+          <div className="flex flex-col w-full mt-auto">
+            <h1 className="text-center my-2 font-bold">Ár: {props.price} Ft</h1>
+            <Button href={"/payment?id=" + props.noteId} type="main" text="Vásárlás" />
+          </div>
         </div>
       </div>
     );
