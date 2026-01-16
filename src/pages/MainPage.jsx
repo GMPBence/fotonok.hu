@@ -10,6 +10,7 @@ import api from "../app/api";
 import { useLoading } from "../context/LoadingContext";
 import Swal from "sweetalert2";
 import getPlansBySeacrh from "../app/search";
+import sortPlans from "../app/sort";
 
 const MainPage = (props) => {
   const [plans, setPlans] = useState([]);
@@ -19,18 +20,21 @@ const MainPage = (props) => {
   const [navbarSearch, setNavbarSearch] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const fetchPlans = async () => {
+    const fetchPlans = async () => {
     try {
       setIsLoading(true)
       const res = await api.get("/plans/get/all");
-      setPlans(res.data.notes);
-      setPlansByBackend(res.data.notes);
-      setIsLoading(false)
-      
+
+      const sortedPlans = sortPlans(res.data.notes);
+
+      setPlans(sortedPlans);
+      setPlansByBackend(sortedPlans);
+      setIsLoading(false);
+
       const searchQuery = searchParams.get("search");
       if (searchQuery) {
         setNavbarSearch(searchQuery);
-        const result = getPlansBySeacrh(searchQuery, res.data.notes);
+        const result = getPlansBySeacrh(searchQuery, sortedPlans);
         const filtered = result.map(r => r.item);
         setPlans(filtered);
         setSearchParams({});
@@ -42,6 +46,7 @@ const MainPage = (props) => {
         }, 100);
       }
     } catch (err) {
+      console.log(err)
       Swal.fire({
         icon: 'error',
         title: 'Hiba a jegyzetek lekérsekor',
@@ -51,34 +56,46 @@ const MainPage = (props) => {
       setIsLoading(false)
     }
   }
-  useEffect( () => {
-    fetchPlans()
-  }, []);
 
   const handleSearch = (search) => {
     setSearch(search);
     if (search === "") {
-      setPlans(plansByBackend);
+      setPlans(sortPlans(plansByBackend));
       return
     }
     const result = getPlansBySeacrh(search, plansByBackend);
     const filtered = result.map(r => r.item);
     setPlans(filtered);
   }
+
   const handleNavbarSearch = (search) => {
     setNavbarSearch(search);
     if (search === "") {
-      setPlans(plansByBackend);
+      setPlans(sortPlans(plansByBackend));
       return
     }
     const result = getPlansBySeacrh(search, plansByBackend);
-  
     const filtered = result.map(r => r.item);
     setPlans(filtered);
     const element = document.getElementById("notes");
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
+  }
+
+  useEffect( () => { fetchPlans() }, []);
+
+  const checkNew = (time) => {
+    if (Date.now() - time > 7 * 24 * 60 * 60 * 1000) {
+      return false;
+    }
+    return true;
+  }
+  const checkPopular = (time) => {
+    if (Date.now() - time > 30 * 24 * 60 * 60 * 1000) {
+      return false;
+    }
+    return true;
   }
   return (
     <div className="flex flex-col  w-full overflow-x-hidden">
@@ -121,8 +138,11 @@ const MainPage = (props) => {
             {plans.map((plan) => (
               <Card
                 key={plan.note_id}
+                new={checkNew(plan.created_at)}
+                popular={plan.price != 0.00 && checkPopular(plan.created_at)}
+                free={plan.price == 0.00}
                 title={plan.title}
-                src="https://placehold.co/250x150"
+                src={plan.img_path ? plan.img_path : "https://placehold.co/250x150"}
                 desc={plan.description}
                 price={plan.price}
                 type="big"

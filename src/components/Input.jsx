@@ -28,7 +28,7 @@ function Input(props) {
           value={props.value}
           onChange={props.onChange}
           type={props.type}
-          className="bg-[#E7E7E7] text-[hsl(0,0%,70%)] px-4 py-2 text-xl font-bold rounded-md w-full"
+          className="bg-[#B1B1B1] placeholder:text-[#ffff] text-[#ffffff] text-opacity-1 px-4 py-2 text-xl font-bold rounded-md w-full outline-0"
           placeholder={props.placeholder}
         />
       </div>

@@ -38,7 +38,7 @@ const NotesPage = (props) => {
           <h1 className="text-4xl font-extrabold">Jegyzeteim</h1>
           <div className="bg-highlight h-1 mt-1 rounded-2xl w-[50%]"></div>
         </div>
-        <div className="sm:w-150 flex gap-5 flex-col">
+        <div className="sm:w-200 flex gap-5 flex-col">
           {plans && plans.length > 0 ? plans.map((plan) => (
               <Card type="note" key={plan.note_id} title={plan.title} size={plan.file_size} id={plan.note_id} />
             )) : <>

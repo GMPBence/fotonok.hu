@@ -2,7 +2,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Button from "../components/Button";
 import Card from "../components/Card";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import api from "../app/api";
 import { useLoading } from "../context/LoadingContext";
@@ -11,14 +11,27 @@ const PaymentPage = (props) => {
   const [plan, setPlan] = useState();
   const [payment, setPayment] = useState("");
   const {setIsLoading} = useLoading()
+  const navigate = useNavigate();
 
   const fetchPlans = async () => {
     try {
       setIsLoading(true)
       const res = await api.get("/plans/get?id=" + window.location.search.split("=")[1]);
-      setPlan(res.data.note);
       setIsLoading(false)
+      if (res.data.note.price == 0.00) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Ez a jegyzet nem vásárolható meg',
+          timer: 1500
+        })
+        setTimeout(() => {
+          navigate("/");
+        }, 1500);
+        return
+      }
+      setPlan(res.data.note);
     } catch (err) {
+
       Swal.fire({
         icon: 'error',
         title: 'Hiba a jegyzet lekérsekor',
@@ -107,7 +120,7 @@ const PaymentPage = (props) => {
           {plan ? <Card
               key={plan.note_id}
               title={plan.title}
-              src="https://placehold.co/250x150"
+              src={plan.img_path}
               desc={plan.description}
               price={plan.price}
               type="payment"
@@ -117,11 +130,11 @@ const PaymentPage = (props) => {
             :
             <h1>Nincs ilyen csomag</h1>
           }
-          <div className="flex flex-col gap-5 justify-between items-center">
+          <div className="flex flex-col gap-5 items-center">
             <h1 className="text-xl font-bold">Mivel szeretnél fizetni?</h1>
             <label checked={payment === "stripe"} onChange={() => setPayment("stripe")} htmlFor="card" className="block">
               <input  type="radio" name="payment" id="card" className="hidden peer" />
-              <div className="bg-primary text-white w-50 h-25 text-center py-2 px-3 rounded-2xl cursor-pointer peer-checked:border-4 peer-checked:border-highlight">
+              <div className="bg-primary text-white w-[300px] h-20 text-center py-2 px-3 rounded-2xl cursor-pointer peer-checked:border-4 peer-checked:border-highlight transition-all hover:scale-105" >
                 <h2 className="text-lg">Bankkártya</h2>
                 <p className="text-xs">Egyszerű, és biztonságos fizetés bankkártyával.</p>
               </div>
@@ -129,7 +142,7 @@ const PaymentPage = (props) => {
 
             <label htmlFor="paypal" className="block">
               <input checked={payment === "paypal"} onChange={() => setPayment("paypal")} type="radio" name="payment" id="paypal" className="hidden peer" />
-              <div className="bg-primary text-white w-50 h-25 text-center py-2 px-3 rounded-2xl cursor-pointer peer-checked:border-4 peer-checked:border-highlight">
+              <div className="bg-primary text-white w-300px h-20  text-center py-2 px-3 rounded-2xl cursor-pointer peer-checked:border-4 peer-checked:border-highlight transition-all hover:scale-105">
                 <h2 className="text-lg">PayPal</h2>
                 <p className="text-xs">Kényelmes, és gyors fizetés a paypal fiokoddal.</p>
               </div>
