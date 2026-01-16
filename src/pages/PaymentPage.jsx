@@ -147,8 +147,8 @@ const PaymentPage = (props) => {
                 <p className="text-xs">Kényelmes, és gyors fizetés a paypal fiokoddal.</p>
               </div>
             </label>
-            <div>
-              <h2 className="text-xl font-bold"> Összesen: {plan?.price ? plan.price : 0} Ft</h2>
+            <div className="w-[300px]"> 
+              <h2 className="text-xl font-bold text-center"> Összesen: {plan?.price ? plan.price : 0} Ft</h2>
               <Button type="primary" text="Fizetés" onClick={handlePay}/>
             </div>
           </div>
