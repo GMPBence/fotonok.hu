@@ -8,16 +8,21 @@ import { useEffect, useState } from "react";
 import api from "../app/api";
 import { useLoading } from "../context/LoadingContext";
 import Swal from "sweetalert2";
+import getPlansBySeacrh from "../app/search";
 
 const MainPage = (props) => {
   const [plans, setPlans] = useState([]);
+  const [plansByBackend, setPlansByBackend] = useState([]);
   const {setIsLoading, isLoading} = useLoading()
+  const [search, setSearch] = useState("");
+  const [navbarSearch, setNavbarSearch] = useState("");
 
   const fetchPlans = async () => {
     try {
       setIsLoading(true)
       const res = await api.get("/plans/get/all");
       setPlans(res.data.notes);
+      setPlansByBackend(res.data.notes);
       setIsLoading(false)
     } catch (err) {
       Swal.fire({
@@ -33,9 +38,35 @@ const MainPage = (props) => {
     fetchPlans()
   }, []);
 
+  const handleSearch = (search) => {
+    setSearch(search);
+    if (search === "") {
+      console.log("asd")
+      setPlans(plansByBackend);
+      return
+    }
+    const result = getPlansBySeacrh(search, plans);
+    const filtered = result.map(r => r.item);
+    setPlans(filtered);
+  }
+  const handleNavbarSearch = (search) => {
+    setNavbarSearch(search);
+    if (search === "") {
+      console.log("asd")
+      setPlans(plansByBackend);
+      return
+    }
+    const result = getPlansBySeacrh(search, plans);
+    const filtered = result.map(r => r.item);
+    setPlans(filtered);
+    const element = document.getElementById("notes");
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  }
   return (
     <div className="flex flex-col  w-full overflow-x-hidden">
-      <Navbar authenticated={props.authenticated} />
+      <Navbar authenticated={props.authenticated} searchValue={navbarSearch} searchOnChange={(e) => handleNavbarSearch(e.target.value)} />
       <div className="w-full flex flex-col lg:flex-row justify-between items-center max-w-300 px-10 mx-auto mt-15 lg:mt-4">
         <div className="flex-col flex max-w-100 gap-3 mb-10 lg:mb-0">
           <h1 className="text-3xl text-primary font-extrabold">
@@ -62,23 +93,30 @@ const MainPage = (props) => {
             <div className="w-[70%] h-1 bg-highlight rounded-2xl"></div>
           </div>
           <div className="md:w-100">
-            <SearchBar />
+            <SearchBar value={search} onChange={(e) => handleSearch(e.target.value)} />
           </div>
         </div>
-        <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-12.5 px-25 mt-10 justify-evenly max-w-400">
-          {plans.map((plan) => (
-            <Card
-              key={plan.note_id}
-              title={plan.title}
-              src="https://placehold.co/250x150"
-              desc={plan.description}
-              price={plan.price}
-              type="big"
-              content={JSON.parse(plan.summary)}
-              noteId={plan.note_id}
-            />
-          ))}
-        </div>
+        {plans.length === 0 ? (
+          <div className="flex justify-center items-center h-50">
+            <h1 className="text-3xl text-primary font-bold">Nincs találat</h1>
+          </div>
+        ) : (
+          <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-12.5 px-25 mt-10 justify-evenly max-w-400">
+            {plans.map((plan) => (
+              <Card
+                key={plan.note_id}
+                title={plan.title}
+                src="https://placehold.co/250x150"
+                desc={plan.description}
+                price={plan.price}
+                type="big"
+                content={JSON.parse(plan.summary)}
+                noteId={plan.note_id}
+              />
+            ))}
+          </div>
+        )}
+
         <div className="bg-primary w-[300%] -ms-10 h-25 my-20 rotate-358"></div>
         <div className="max-w-100 flex flex-col items-center">
           <a

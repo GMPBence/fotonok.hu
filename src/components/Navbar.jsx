@@ -37,7 +37,7 @@ function Navbar(props) {
           </Link>
         ) : null}
         <div className="w-95">
-          <SearchBar />
+          <SearchBar value={props.searchValue} onChange={props.searchOnChange} />
         </div>
         <div className="">
           {props.authenticated ? <Button type="primary" text="Kijelentkezés" onClick={handleLogout} /> : (
