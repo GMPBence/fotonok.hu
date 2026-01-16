@@ -15,7 +15,7 @@ function Navbar(props) {
     window.location.reload();
   };
   return (
-    <div className="bg-primary h-20 px-12 py-5 flex flex-row justify-between items-center">
+    <div className="bg-primary h-20 px-12 py-5 flex flex-row justify-between items-center fixed z-100 w-full">
       <Link to="/" className="text-white font-bold text-3xl">
         fotonok.<span className="text-highlight">hu</span>
       </Link>
@@ -77,7 +77,7 @@ function Navbar(props) {
           isActive ? "flex" : "hidden"
         }`}
       >
-        <SearchBar />
+        <SearchBar value={props.searchValue} onChange={props.searchOnChange} />
 
         {props.authenticated ? (
           <Link

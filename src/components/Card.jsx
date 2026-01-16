@@ -100,7 +100,6 @@ function Card(props) {
         <h1>{props.title}</h1>
         <div className="flex flex-row items-cente gap-3">
           <p className="w-30  flex flex-row items-center">{props.size}</p>
-          {console.log(props.size)}
           <Button type="primary" text="Letöltés" onClick={handleDownload.bind(this, props.id)} />
         </div>
       </div>

@@ -15,9 +15,7 @@ const PaymentPage = (props) => {
   const fetchPlans = async () => {
     try {
       setIsLoading(true)
-      console.log("/plans/get?id=" + window.location.search.split("=")[1])
       const res = await api.get("/plans/get?id=" + window.location.search.split("=")[1]);
-      console.log(res.data.note.img_path);
       setPlan(res.data.note);
       setIsLoading(false)
     } catch (err) {
@@ -51,7 +49,6 @@ const PaymentPage = (props) => {
       const res = await api.post("/payment/checkout/" + payment, {
         note_id: plan.note_id
       });
-      console.log(res.data);
       if (res.data.url) {
         Swal.fire({
           icon: 'success',

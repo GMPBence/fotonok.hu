@@ -45,7 +45,6 @@ const LoginPage = (props) => {
         }, 1500);
       }
     } catch (err) {
-      console.log();
       if (err?.response?.data?.error === "err_pass_or_user") {
         Swal.fire({
           icon: 'error',

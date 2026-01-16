@@ -41,22 +41,21 @@ const MainPage = (props) => {
   const handleSearch = (search) => {
     setSearch(search);
     if (search === "") {
-      console.log("asd")
       setPlans(plansByBackend);
       return
     }
-    const result = getPlansBySeacrh(search, plans);
+    const result = getPlansBySeacrh(search, plansByBackend);
     const filtered = result.map(r => r.item);
     setPlans(filtered);
   }
   const handleNavbarSearch = (search) => {
     setNavbarSearch(search);
     if (search === "") {
-      console.log("asd")
       setPlans(plansByBackend);
       return
     }
-    const result = getPlansBySeacrh(search, plans);
+    const result = getPlansBySeacrh(search, plansByBackend);
+  
     const filtered = result.map(r => r.item);
     setPlans(filtered);
     const element = document.getElementById("notes");
@@ -67,7 +66,7 @@ const MainPage = (props) => {
   return (
     <div className="flex flex-col  w-full overflow-x-hidden">
       <Navbar authenticated={props.authenticated} searchValue={navbarSearch} searchOnChange={(e) => handleNavbarSearch(e.target.value)} />
-      <div className="w-full flex flex-col lg:flex-row justify-between items-center max-w-300 px-10 mx-auto mt-15 lg:mt-4">
+      <div className="w-full flex flex-col lg:flex-row justify-between items-center max-w-300 px-10 mx-auto mt-20 lg:mt-4 pt-30">
         <div className="flex-col flex max-w-100 gap-3 mb-10 lg:mb-0">
           <h1 className="text-3xl text-primary font-extrabold">
             Olcsó fizika jegyzetek dolgozatokra és TZ-kre
