@@ -5,38 +5,38 @@ import { useLoading } from "../context/LoadingContext";
 import Swal from "sweetalert2";
 
 function Card(props) {
-  const {setIsLoading} = useLoading()
+  const { setIsLoading } = useLoading()
   const handleDownload = async (noteId) => {
     setIsLoading(true)
-      try {
-        const res = await api.get("/plans/download?id=" + noteId, {
-          responseType: 'blob',
-        });
-        const url = window.URL.createObjectURL(new Blob([res.data]));
-        const link = document.createElement('a');
-        link.href = url;
-        link.setAttribute('download', 'jegyzet.pdf');
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
-        setIsLoading(false)
-        if (res.status === 200) {
-          Swal.fire({
-            icon: 'success',
-            title: 'Sikeres letöltés',
-            showConfirmButton: false,
-            timer: 1500
-          })
-        }
-      } catch (err) {
-        setIsLoading(false)
+    try {
+      const res = await api.get("/plans/download?id=" + noteId, {
+        responseType: 'blob',
+      });
+      const url = window.URL.createObjectURL(new Blob([res.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'jegyzet.pdf');
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      setIsLoading(false)
+      if (res.status === 200) {
         Swal.fire({
-          icon: 'error',
-          title: 'Hiba a jegyzet letöltéskor',
-          text: err?.response?.data?.error,
-          showConfirmButton: true
+          icon: 'success',
+          title: 'Sikeres letöltés',
+          showConfirmButton: false,
+          timer: 1500
         })
       }
+    } catch (err) {
+      setIsLoading(false)
+      Swal.fire({
+        icon: 'error',
+        title: 'Hiba a jegyzet letöltéskor',
+        text: err?.response?.data?.error,
+        showConfirmButton: true
+      })
+    }
   }
 
   if (props.type === "big") {
@@ -98,8 +98,9 @@ function Card(props) {
     return (
       <div id={props.id} className="bg-primary rounded-xl text-white flex flex-row justify-between p-7 items-center w-full">
         <h1>{props.title}</h1>
-        <div className="flex flex-row items-center gap-3">
-          <p>{props.size}</p>
+        <div className="flex flex-row items-cente gap-3">
+          <p className="w-30  flex flex-row items-center">{props.size}</p>
+          {console.log(props.size)}
           <Button type="primary" text="Letöltés" onClick={handleDownload.bind(this, props.id)} />
         </div>
       </div>
@@ -120,7 +121,7 @@ function Card(props) {
           </div>
         )}
         <img src={props.src} alt="" />
-        <div className="bg-primary text-white p-5 ">
+        <div className="bg-primary h-full text-white p-5 ">
           <h2 className="border-b-highlight border-b-2 w-fit pe-2 mb-3 font-bold">
             {props.title}
           </h2>
