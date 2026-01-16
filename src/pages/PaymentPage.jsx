@@ -95,7 +95,7 @@ const PaymentPage = (props) => {
     }
   };
   return (
-    <div className="flex flex-col min-h-screen justify-between gap-3 w-full overflow-x-hidden">
+    <div className="flex flex-col min-h-screen justify-between gap-3 w-full overflow-x-hidden pt-30">
       <Navbar authenticated={props.authenticated} />
       <div className="flex flex-col justify-center items-center gap-7 px-2">
         <div className="flex flex-col items-center">
