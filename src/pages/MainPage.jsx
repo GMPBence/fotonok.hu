@@ -5,6 +5,7 @@ import LaptopImage from "../assets/images/laptop.png";
 import SearchBar from "../components/SearchBar";
 import Card from "../components/Card";
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import api from "../app/api";
 import { useLoading } from "../context/LoadingContext";
 import Swal from "sweetalert2";
@@ -16,6 +17,7 @@ const MainPage = (props) => {
   const {setIsLoading, isLoading} = useLoading()
   const [search, setSearch] = useState("");
   const [navbarSearch, setNavbarSearch] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const fetchPlans = async () => {
     try {
@@ -24,6 +26,21 @@ const MainPage = (props) => {
       setPlans(res.data.notes);
       setPlansByBackend(res.data.notes);
       setIsLoading(false)
+      
+      const searchQuery = searchParams.get("search");
+      if (searchQuery) {
+        setNavbarSearch(searchQuery);
+        const result = getPlansBySeacrh(searchQuery, res.data.notes);
+        const filtered = result.map(r => r.item);
+        setPlans(filtered);
+        setSearchParams({});
+        setTimeout(() => {
+          const element = document.getElementById("notes");
+          if (element) {
+            element.scrollIntoView({ behavior: "smooth" });
+          }
+        }, 100);
+      }
     } catch (err) {
       Swal.fire({
         icon: 'error',
