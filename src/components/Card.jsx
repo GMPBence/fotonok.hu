@@ -59,7 +59,7 @@ function Card(props) {
       }
     } catch (err) {
       setIsLoading(false)
-      if (err?.response?.data?.error === "user_already_has_note") {
+      if (err?.response?.data?.error === "user_already_has_plan") {
         Swal.fire({
           icon: 'error',
           title: 'Hiba történt a beszerzés során',
