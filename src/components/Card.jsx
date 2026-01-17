@@ -197,10 +197,10 @@ function Card(props) {
   }
   if (props.type === "note") {
     return (
-      <div id={props.id} className="bg-primary rounded-xl text-white flex flex-row justify-between p-5 items-center w-full">
+      <div id={props.id} className="bg-primary rounded-xl text-white flex flex-col sm:flex-row justify-between p-5 items-center w-full">
         <h1>{props.title}</h1>
-        <div className="flex flex-row items-cente gap-3">
-          <p className="w-30  flex flex-row items-center">{props.size}</p>
+        <div className="flex  flex-col   sm:flex-row items-center gap-3">
+          <p className="sm:w-30 text-center w-full">{props.size}</p>
           <Button type="primary" text="Letöltés" onClick={handleDownload.bind(this, props.id)} />
         </div>
       </div>

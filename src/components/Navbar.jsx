@@ -71,8 +71,8 @@ function Navbar(props) {
       </div>
 
       <div
-        className={`absolute top-20 z-1000 ${
-          props.authenticated ? "h-50" : "h-20"
+        className={`absolute top-20 rounded-b-2xl z-1000 ${
+          props.authenticated ? "h-50" : "h-26"
         } px-5 left-0  w-full  bg-primary flex-col items-center gap-5 text-white transition-all duration-300 ${
           isActive ? "flex" : "hidden"
         }`}

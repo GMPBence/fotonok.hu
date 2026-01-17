@@ -134,7 +134,7 @@ const MainPage = (props) => {
             <h1 className="text-3xl text-primary font-bold">Nincs találat</h1>
           </div>
         ) : (
-          <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-12.5 px-25 mt-10 justify-evenly max-w-400">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-12.5 px-10 mt-10 justify-evenly md:px-25 max-w-400">
             {plans.map((plan) => (
               <Card
                 key={plan.note_id}
