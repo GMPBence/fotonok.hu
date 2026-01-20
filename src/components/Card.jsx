@@ -49,7 +49,7 @@ function Card(props) {
       if (res.status === 200) {
         Swal.fire({
           icon: 'success',
-          title: 'Sikeres felhasználás',
+          title: 'Sikeres beszerzés',
           showConfirmButton: false,
           timer: 1500
         })
@@ -63,7 +63,7 @@ function Card(props) {
         Swal.fire({
           icon: 'error',
           title: 'Hiba történt a beszerzés során',
-          text: 'Már megvetted ezt a jegyzetet',          
+          text: 'Te már beszerezted ezt a jegyzetet',          
           showConfirmButton: true
         })
       } else if (err?.response?.data?.error === "note_not_found") {

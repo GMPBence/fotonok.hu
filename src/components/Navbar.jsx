@@ -42,7 +42,7 @@ function Navbar(props) {
         <div className="">
           {props.authenticated ? <Button type="primary" text="Kijelentkezés" onClick={handleLogout} /> : (
             <Link to="/login">
-              <Button type="primary" text="Profil" />
+              <Button type="primary" text="Bejelentkezés" />
             </Link>
           )
           }
@@ -107,7 +107,7 @@ function Navbar(props) {
             to="/login"
             className="text-white relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full"
           >
-            Profil
+            Bejelentkezés
           </Link>
         )}
       </div>
