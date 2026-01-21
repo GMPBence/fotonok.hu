@@ -108,7 +108,7 @@ function Card(props) {
   if (props.type === "big") {
     const items = props.content;
     return (
-      <div className="border-3 border-primary rounded-xl w-300px h-250px overflow-hidden relative hover:scale-105 transition-all hover:border-[#FE6A01] flex flex-col">
+    <div className="border-3 border-primary rounded-xl w-full h-full max-w-[300px]overflow-hidden relative hover:scale-105 transition-all hover:border-[#FE6A01] flex flex-col">
 
       {(props.popular || props.new) && (
         <div className="absolute top-3 left-3 flex flex-row gap-2 z-10">

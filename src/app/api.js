@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: "https://api.fotonok.hu/api/v1",
+    baseURL: "https://minesideapi.gmpbence.hu/api/v1",
 });
 
 api.interceptors.request.use((config) => {
