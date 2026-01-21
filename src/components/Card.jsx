@@ -131,7 +131,10 @@ function Card(props) {
       )}
 
 
-      <img src={`https://fotonok.hu/img/${props.src}`} className="shrink-0" />
+      <img src={`https://fotonok.hu/img/${props.src}`} className="shrink-0 w-full 
+    h-40 
+    object-cover 
+    rounded-t-xl" />
 
       <div className="bg-primary flex-1 flex flex-col text-white p-5">
         <h2 className="border-b-highlight border-b-2 w-fit pe-2 mb-3 font-bold">
