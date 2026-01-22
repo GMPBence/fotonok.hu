@@ -65,7 +65,7 @@ const PaymentPage = (props) => {
       if (res.data.url) {
         Swal.fire({
           icon: 'success',
-          title: 'Áttirányítás...',
+          title: 'Átirányítás...',
           showConfirmButton: false,
           timer: 1500
         })
@@ -142,7 +142,7 @@ const PaymentPage = (props) => {
 
             <label htmlFor="paypal" className="block">
               <input checked={payment === "paypal"} onChange={() => setPayment("paypal")} type="radio" name="payment" id="paypal" className="hidden peer" />
-              <div className="bg-primary text-white w-300px h-20  text-center py-2 px-3 rounded-2xl cursor-pointer peer-checked:border-4 peer-checked:border-highlight transition-all hover:scale-105">
+              <div className="bg-primary text-white w-[300px] h-20  text-center py-2 px-3 rounded-2xl cursor-pointer peer-checked:border-4 peer-checked:border-highlight transition-all hover:scale-105">
                 <h2 className="text-lg">PayPal</h2>
                 <p className="text-xs">Kényelmes, és gyors fizetés a paypal fiokoddal.</p>
               </div>
