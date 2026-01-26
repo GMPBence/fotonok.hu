@@ -110,7 +110,7 @@ function Card(props) {
     return (
     <div className="border-3 border-primary rounded-xl w-full h-full max-w-[300px]overflow-hidden relative hover:scale-105 transition-all hover:border-[#FE6A01] flex flex-col">
 
-      {(props.popular || props.new) && (
+      {(props.popular || props.new || props.free) && (
         <div className="absolute top-3 left-3 flex flex-row gap-2 z-10">
           {props.new && (
             <div className="bg-[#2bb900]   rounded-2xl px-5 py-2 text-white text-xs whitespace-nowrap">
