@@ -7,17 +7,21 @@
   body {
     font-family: "Roboto Slab";
   }
-  html{
-      scroll-behavior: smooth;
+
+  html {
+    scroll-behavior: smooth;
   }
 }
+
 @theme {
   --color-primary: #090D18;
   --color-primaryHover: #1F2C52;
   --color-light: #717C9C;
   --color-secondary: #111F46;
   --color-highlight: #F3BA12;
-  --color-input-gray : #ADADAD1A;
+  --color-input-gray: #ADADAD1A;
   --font-bowlby: "Bowlby One SC";
   --color-button-light: rgb(17, 31, 70, 0.75);
+  --color-input-light: #E7E7E7;
+  --color-input-dark: #B1B1B1
 }

@@ -4,12 +4,12 @@ function Input(props) {
       <div>
         <input
           type="text"
-          className="bg-[#E7E7E7] text-[#828282] px-4 py-2 text-xl font-bold rounded-md w-full"
+          className="bg-input-light text-[#828282] px-4 py-2 text-xl font-bold rounded-md w-full"
           placeholder={props.type}
         />
       </div>
     );
-  } else if(props.inputType === "auth"){
+  } else if (props.inputType === "auth") {
     return (
       <div>
         <input
@@ -28,7 +28,7 @@ function Input(props) {
           value={props.value}
           onChange={props.onChange}
           type={props.type}
-          className="bg-[#B1B1B1] placeholder:text-[#ffff] text-[#ffffff] text-opacity-1 px-4 py-2 text-xl font-bold rounded-md w-full outline-0"
+          className="bg-input-dark placeholder:text-[#ffff] text-[#ffffff] text-opacity-1 px-4 py-2 text-xl font-bold rounded-md w-full outline-0"
           placeholder={props.placeholder}
         />
       </div>

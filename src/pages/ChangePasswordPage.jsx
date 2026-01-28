@@ -114,7 +114,7 @@ const ChangePasswordPage = (props) => {
           <Input placeholder="Jelenlegi jelszó"  type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
           <Input placeholder="Új jelszó" type="password" value={newpassword} onChange={(e) => setNewpassword(e.target.value)}/>
           <Input placeholder="Új jelszó újra" type="password" value={newpassword2} onChange={(e) => setNewpassword2(e.target.value)}/>
-          <Button type="changePass" text="Jelszó váltás" onClick={handleResetPassword} />
+          <Button type="save" text="Jelszó váltás" onClick={handleResetPassword} />
         </div>
       </div>
       <Footer />

@@ -36,8 +36,35 @@ function Button(props) {
       </button>
     );
   }
-  if (props.type === "changePass") {
-    return <button onClick={props.onClick} className="bg-[#B1B1B1] text-[#fff] px-4 py-2 text-xl font-bold rounded-md w-full cursor-pointer hover:bg-[#a5a5a5] transition-all hover:scale-105">{props.text}</button>;
+  if (props.type === "save") {
+    return <button onClick={props.onClick} className="bg-input-light text-[#828282]  px-4 py-2 text-xl font-bold rounded-md w-full cursor-pointer hover:bg-[#a5a5a5] hover:text-white transition-all hover:scale-105">{props.text}</button>;
+  }
+  if (props.type === "billing") {
+    return (
+      <div className="flex flex-row rounded-xl overflow-hidden">
+        <label htmlFor="recipt1">
+          <input 
+            type="radio" 
+            name="recipt" 
+            id="recipt1" 
+            className="hidden peer" 
+            defaultChecked 
+            onChange={() => props.onChange("recipt1")}
+          />
+          <div className="bg-input-light text-[#828282] text-xl font-bold peer-checked:bg-input-dark peer-checked:text-white py-3 px-10 cursor-pointer">Nyugta</div>
+        </label>
+        <label htmlFor="recipt2">
+          <input 
+            type="radio" 
+            name="recipt" 
+            id="recipt2" 
+            className="hidden peer" 
+            onChange={() => props.onChange("recipt2")}
+          />
+          <div className="bg-input-light text-[#828282] text-xl font-bold peer-checked:bg-input-dark peer-checked:text-white py-3 px-10 cursor-pointer">Számla</div>
+        </label>
+      </div>
+    );
   }
   return (
     <>

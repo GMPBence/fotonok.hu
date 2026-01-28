@@ -12,6 +12,7 @@ import ChangePasswordPage from "./pages/ChangePasswordPage";
 import NotesPage from "./pages/NotesPage";
 import SuccessfulPaymentPage from "./pages/SuccessfulPaymentPage";
 import PaymentPage from "./pages/PaymentPage";
+import BillingPage from "./pages/BillingPage";
 import Loader from "./layout/LoaderLayout";
 
 function PrivateRoute({ children }) {
@@ -21,7 +22,7 @@ function PrivateRoute({ children }) {
 }
 
 function LoaderWrapper() {
-  const { isLoading  } = useLoading();
+  const { isLoading } = useLoading();
   const [authenticated, setAuthenticated] = useState(isAuthenticated());
 
   return (
@@ -75,6 +76,9 @@ function LoaderWrapper() {
               <PaymentPage authenticated={authenticated} price={123} />
             }
           />
+        <Route path="/billing" element={
+          <BillingPage authenticated={authenticated} />
+        } />
         </Routes>
       </BrowserRouter>
     </>
