@@ -5,12 +5,13 @@ import Card from "../components/Card";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import api from "../app/api";
-import { useLoading } from "../context/LoadingContext";
+import { useBilling, useLoading } from "../context/LoadingContext";
 import Swal from "sweetalert2";
 const PaymentPage = (props) => {
   const [plan, setPlan] = useState();
   const [payment, setPayment] = useState("");
   const { setIsLoading } = useLoading()
+  const {isReceiptNeeded, setIsReceiptNeeded} = useBilling(false);
   const navigate = useNavigate();
 
   const fetchPlans = async () => {
@@ -41,6 +42,16 @@ const PaymentPage = (props) => {
       setIsLoading(false)
     }
   };
+
+  const handleBillingType = (type) => {
+    console.log(type)
+    if (type === "invoice") {
+      setIsReceiptNeeded(true)
+      navigate("/billing?id=" + window.location.search.split("=")[1])
+    } else {
+      setIsReceiptNeeded(false)
+    }
+  }
 
   useEffect(() => {
     fetchPlans();
@@ -154,7 +165,8 @@ const PaymentPage = (props) => {
                   name="reciptType"
                   id="recipt"
                   className="hidden peer"
-                  defaultChecked
+                  checked={isReceiptNeeded === false}
+                  onChange={() => handleBillingType("receipt")}
                 />
                 <div className="bg-input-light text-[#828282] text-xl font-bold peer-checked:bg-input-dark peer-checked:text-white py-3 px-10 cursor-pointer">Nyugta</div>
               </label>
@@ -164,6 +176,8 @@ const PaymentPage = (props) => {
                   name="reciptType"
                   id="invoice"
                   className="hidden peer"
+                  checked={isReceiptNeeded === true}
+                  onChange={() => handleBillingType("invoice")}
                 />
                 <div className="bg-input-light text-[#828282] text-xl font-bold peer-checked:bg-input-dark peer-checked:text-white py-3 px-10 cursor-pointer">Számla</div>
               </label>

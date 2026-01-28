@@ -48,7 +48,6 @@ function Button(props) {
             name={props.name || "radioGroup"} 
             id={props.id1 || "option1"} 
             className="hidden peer" 
-            defaultChecked 
             onChange={() => props.onChange(props.id1 || "option1")}
           />
           <div className="bg-input-light text-[#828282] text-xl font-bold peer-checked:bg-input-dark peer-checked:text-white py-3 px-10 cursor-pointer">{props.label1 || "Option 1"}</div>
@@ -59,6 +58,7 @@ function Button(props) {
             name={props.name || "radioGroup"} 
             id={props.id2 || "option2"} 
             className="hidden peer" 
+            defaultChecked 
             onChange={() => props.onChange(props.id2 || "option2")}
           />
           <div className="bg-input-light text-[#828282] text-xl font-bold peer-checked:bg-input-dark peer-checked:text-white py-3 px-10 cursor-pointer">{props.label2 || "Option 2"}</div>

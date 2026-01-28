@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useState } from "react";
-import { LoadingProvider, useLoading } from "./context/LoadingContext";
+import { BillingProvider, LoadingProvider, useLoading } from "./context/LoadingContext";
 import { isAuthenticated } from "./app/auth";
 import MainPage from "./pages/MainPage";
 import LoginPage from "./pages/LoginPage";
@@ -88,7 +88,9 @@ function LoaderWrapper() {
 function App() {
   return (
     <LoadingProvider>
-      <LoaderWrapper />
+      <BillingProvider>
+        <LoaderWrapper />
+      </BillingProvider>
     </LoadingProvider>
   );
 }

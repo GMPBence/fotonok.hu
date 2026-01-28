@@ -7,7 +7,7 @@ import Card from "../components/Card";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import api from "../app/api";
-import { useLoading } from "../context/LoadingContext";
+import { useBilling, useLoading } from "../context/LoadingContext";
 import Swal from "sweetalert2";
 import getPlansBySeacrh from "../app/search";
 import sortPlans from "../app/sort";
@@ -19,10 +19,10 @@ const MainPage = (props) => {
   const [search, setSearch] = useState("");
   const [navbarSearch, setNavbarSearch] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
+  const { isReceiptNeeded, setIsReceiptNeeded } = useBilling();
 
     const fetchPlans = async () => {
     try {
-      setIsLoading(true)
       const res = await api.get("/plans/get/all");
 
       const sortedPlans = sortPlans(res.data.notes);
