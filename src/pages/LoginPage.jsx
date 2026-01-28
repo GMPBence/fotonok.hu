@@ -74,9 +74,9 @@ const LoginPage = (props) => {
   return (
     <div className="flex bg-primary  flex-col items-center justify-center h-screen">
       <div className="bg-[#1F243280] sm:w-150.5 h-100 p-10 flex flex-col rounded-2xl gap-5">
-        <h1 className="text-white text-4xl font-bold text-center mb-5">
+        <Link to="/" className="text-white text-4xl font-bold text-center mb-5">
           fotonok.<span className="text-highlight">hu</span>
-        </h1>
+        </Link>
         <Input inputType="auth" type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
         <div className="flex flex-col gap-1">
             <Input inputType="auth" type="password" placeholder="Jelszó" value={password} onChange={e => setPassword(e.target.value)} />
