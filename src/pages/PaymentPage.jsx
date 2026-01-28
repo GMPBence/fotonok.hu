@@ -147,6 +147,27 @@ const PaymentPage = (props) => {
                 <p className="text-xs">Kényelmes, és gyors fizetés a paypal fiokoddal.</p>
               </div>
             </label>
+            <div className="flex flex-row rounded-xl overflow-hidden">
+              <label htmlFor="recipt">
+                <input
+                  type="radio"
+                  name="reciptType"
+                  id="recipt"
+                  className="hidden peer"
+                  defaultChecked
+                />
+                <div className="bg-input-light text-[#828282] text-xl font-bold peer-checked:bg-input-dark peer-checked:text-white py-3 px-10 cursor-pointer">Nyugta</div>
+              </label>
+              <label htmlFor="invoice">
+                <input
+                  type="radio"
+                  name="reciptType"
+                  id="invoice"
+                  className="hidden peer"
+                />
+                <div className="bg-input-light text-[#828282] text-xl font-bold peer-checked:bg-input-dark peer-checked:text-white py-3 px-10 cursor-pointer">Számla</div>
+              </label>
+            </div>
             <div className="w-75">
               <h2 className="text-xl font-bold text-center"> Összesen: {plan?.price ? plan.price : 0} Ft</h2>
               <Button type="primary" text="Fizetés" onClick={handlePay} />
