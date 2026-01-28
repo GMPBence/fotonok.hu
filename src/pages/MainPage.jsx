@@ -167,7 +167,7 @@ const MainPage = (props) => {
           <Card
             type="small"
             title="1. Lépés"
-            content="Hozz létre egy Profild"
+            content="Hozz létre egy Profilt"
           />
           <Card
             type="small"
