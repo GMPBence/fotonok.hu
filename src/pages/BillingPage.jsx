@@ -34,7 +34,7 @@ const BillingPage = (props) => {
                     <Button type="save" text="Mentés" />
                 </div>}
                 {selectedOption === "recipt2" && <div className="w-full max-w-102.5 flex flex-col gap-3">
-                    <h2 className="text-center font-extrabold my-5">Figyelem! Számla esetén vásárlás után 5 napon belül a számla a megadott email címre kiküldésre kerül!</h2>
+                    <h2 className="text-center font-extrabold my-5">Figyelem! Számla esetén vásárlás után 5 munkanapon belül a számla a megadott email címre kiküldésre kerül!</h2>
                     <div className="sm:grid flex flex-col sm:grid-cols-2 gap-3 sm:gap-x-4 sm:gap-y-3">
                         <Input color="light" type="Vezetéknév" />
                         <Input color="light" type="Keresztnév" />
