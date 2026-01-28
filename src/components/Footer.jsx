@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function Footer() {
   return (
     <div className="bg-primary pt-10 px-10 pb-5 flex flex-col">
@@ -14,9 +16,18 @@ function Footer() {
             — Bajan & Ráb —
           </p>
         </div>
-        <div>
-          <p>Elérhetőségek:</p>
-          <p className="text-xs ">bajan@fotonok.hu</p>
+        <div className="flex flex-row gap-10">
+          <div>
+            <p>Dokumentumok:</p>
+            <div className="flex flex-row gap-3">
+              <Link to="asd" className="text-xs" title="Általános szerződési feltételek">ÁSZF</Link>
+              <Link to="asd" className="text-xs" title="Adatvédelmi tájékoztató">AT</Link>
+            </div>
+          </div>
+          <div>
+            <p>Elérhetőségek:</p>
+            <p className="text-xs ">info@fotonok.hu</p>
+          </div>
         </div>
       </div>
     </div>
