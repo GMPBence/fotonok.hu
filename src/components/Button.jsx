@@ -42,26 +42,26 @@ function Button(props) {
   if (props.type === "billing") {
     return (
       <div className="flex flex-row rounded-xl overflow-hidden">
-        <label htmlFor="recipt1">
+        <label htmlFor={props.id1 || "option1"}>
           <input 
             type="radio" 
-            name="recipt" 
-            id="recipt1" 
+            name={props.name || "radioGroup"} 
+            id={props.id1 || "option1"} 
             className="hidden peer" 
             defaultChecked 
-            onChange={() => props.onChange("recipt1")}
+            onChange={() => props.onChange(props.id1 || "option1")}
           />
-          <div className="bg-input-light text-[#828282] text-xl font-bold peer-checked:bg-input-dark peer-checked:text-white py-3 px-10 cursor-pointer">Nyugta</div>
+          <div className="bg-input-light text-[#828282] text-xl font-bold peer-checked:bg-input-dark peer-checked:text-white py-3 px-10 cursor-pointer">{props.label1 || "Option 1"}</div>
         </label>
-        <label htmlFor="recipt2">
+        <label htmlFor={props.id2 || "option2"}>
           <input 
             type="radio" 
-            name="recipt" 
-            id="recipt2" 
+            name={props.name || "radioGroup"} 
+            id={props.id2 || "option2"} 
             className="hidden peer" 
-            onChange={() => props.onChange("recipt2")}
+            onChange={() => props.onChange(props.id2 || "option2")}
           />
-          <div className="bg-input-light text-[#828282] text-xl font-bold peer-checked:bg-input-dark peer-checked:text-white py-3 px-10 cursor-pointer">Számla</div>
+          <div className="bg-input-light text-[#828282] text-xl font-bold peer-checked:bg-input-dark peer-checked:text-white py-3 px-10 cursor-pointer">{props.label2 || "Option 2"}</div>
         </label>
       </div>
     );

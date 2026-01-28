@@ -7,12 +7,19 @@ import api from "../app/api";
 import { useNavigate } from "react-router-dom";
 import { useLoading } from "../context/LoadingContext";
 import Swal from "sweetalert2";
+
 const ChangePasswordPage = (props) => {
+  const [selectedOption, setSelectedOption] = useState("password");
   const [password, setPassword] = useState("");
   const [newpassword, setNewpassword] = useState("");
   const [newpassword2, setNewpassword2] = useState("");
+  const [newEmail, setNewEmail] = useState("");
   const navigate = useNavigate();
   const {setIsLoading} = useLoading()
+
+  const handleRadioChange = (value) => {
+    setSelectedOption(value);
+  }
 
   const handleResetPassword = async () => {
     setIsLoading(true)
@@ -102,19 +109,83 @@ const ChangePasswordPage = (props) => {
       setIsLoading(false)
     }
   }
+
+  const handleChangeEmail = async () => {
+    setIsLoading(true)
+    if (!newEmail || !password) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Hiba történt email változtatáskor',
+        text: 'Minden mező kötelező',
+        showConfirmButton: true
+      })
+      setIsLoading(false)
+      return;
+    }
+
+    try {
+      const res = await api.post("/auth/reset/email", {
+        password: password,
+        newEmail: newEmail
+      });
+      setIsLoading(false)
+      if (res.data.message) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Sikeres email változtatás',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        setTimeout(() => {
+          navigate("/");
+        }, 1500);
+      }
+    } catch (err) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Hiba történt email változtatáskor',
+        text: err?.response?.data?.error || 'Ismeretlen hiba',
+        showConfirmButton: true,
+      })
+      setIsLoading(false)
+    }
+  }
+
   return (
-    <div className="flex flex-col h-screen justify-between w-full overflow-x-hidden">
+    <div className="flex flex-col min-h-screen justify-between w-full overflow-x-hidden">
       <Navbar authenticated={props.authenticated} />
-      <div className="flex flex-col justify-center items-center gap-7 pt-30">
+      <div className="flex flex-col justify-center flex-1 items-center gap-7 px-2 pt-30">
         <div className="flex flex-col items-center">
-          <h1 className="text-4xl font-extrabold">Jelszó váltás</h1>
+          <h1 className="text-4xl font-extrabold text-center">Fiók beállítások</h1>
           <div className="bg-highlight h-1 mt-0.5 rounded-2xl w-[50%]"></div>
         </div>
-        <div className="flex flex-col gap-6 sm:w-100">
-          <Input placeholder="Jelenlegi jelszó"  type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
-          <Input placeholder="Új jelszó" type="password" value={newpassword} onChange={(e) => setNewpassword(e.target.value)}/>
-          <Input placeholder="Új jelszó újra" type="password" value={newpassword2} onChange={(e) => setNewpassword2(e.target.value)}/>
-          <Button type="save" text="Jelszó váltás" onClick={handleResetPassword} />
+        <div className="flex flex-col w-full items-center">
+          <Button 
+            type="billing" 
+            name="accountSettings"
+            id1="password" 
+            id2="email" 
+            label1="Jelszó" 
+            label2="Email" 
+            onChange={handleRadioChange} 
+          />
+
+          {selectedOption === "password" && (
+            <div className="w-full max-w-100 flex flex-col gap-5 mt-5">
+              <Input placeholder="Jelenlegi jelszó" type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+              <Input placeholder="Új jelszó" type="password" value={newpassword} onChange={(e) => setNewpassword(e.target.value)}/>
+              <Input placeholder="Új jelszó újra" type="password" value={newpassword2} onChange={(e) => setNewpassword2(e.target.value)}/>
+              <Button type="save" text="Jelszó váltás" onClick={handleResetPassword} />
+            </div>
+          )}
+
+          {selectedOption === "email" && (
+            <div className="w-full max-w-100 flex flex-col gap-5 mt-5">
+              <Input placeholder="Jelenlegi jelszó" type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+              <Input placeholder="Új email cím" type="email" value={newEmail} onChange={(e) => setNewEmail(e.target.value)}/>
+              <Button type="save" text="Email váltás" onClick={handleChangeEmail} />
+            </div>
+          )}
         </div>
       </div>
       <Footer />

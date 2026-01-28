@@ -46,9 +46,9 @@ function LoaderWrapper() {
           <Route
             path="/changepassword"
             element={
-              <PrivateRoute>
-                <ChangePasswordPage authenticated={authenticated} />
-              </PrivateRoute>
+              // <PrivateRoute>
+              <ChangePasswordPage authenticated={authenticated} />
+              /* </PrivateRoute> */
             }
           />
 
@@ -76,9 +76,9 @@ function LoaderWrapper() {
               <PaymentPage authenticated={authenticated} price={123} />
             }
           />
-        <Route path="/billing" element={
-          <BillingPage authenticated={authenticated} />
-        } />
+          <Route path="/billing" element={
+            <BillingPage authenticated={authenticated} />
+          } />
         </Routes>
       </BrowserRouter>
     </>

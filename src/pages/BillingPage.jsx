@@ -19,7 +19,15 @@ const BillingPage = (props) => {
                 <div className="bg-highlight h-1 mt-1 rounded-2xl w-[50%]"></div>
             </div>
             <div className="flex flex-col w-full items-center">
-                <Button type="billing" onChange={handleRadioChange} />
+                <Button 
+                  type="billing" 
+                  name="recipt"
+                  id1="recipt1" 
+                  id2="recipt2" 
+                  label1="Nyugta" 
+                  label2="Számla" 
+                  onChange={handleRadioChange} 
+                />
 
                 {selectedOption === "recipt1" && <div className="w-full max-w-102.5 flex flex-col gap-5 mt-5">
                     <Input color="light" type="Email" />
