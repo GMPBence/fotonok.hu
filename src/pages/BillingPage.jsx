@@ -49,9 +49,34 @@ const BillingPage = (props) => {
         navigate("/payment?id=" + new URLSearchParams(window.location.search).get("id"));
     };
 
+    const handleBack = () => {
+        const id = new URLSearchParams(window.location.search).get("id");
+        navigate(`/payment?id=${id}`);
+    };
+
     return (
-        <div className="flex flex-col min-h-screen justify-between gap-3 w-full overflow-x-hidden">
+        <div className="flex flex-col min-h-screen justify-between gap-3 w-full overflow-x-hidden relative">
         <Navbar authenticated={props.authenticated} />
+        
+        <button 
+            onClick={handleBack} 
+            className="fixed top-25 left-5 p-3 bg-primary text-white hover:bg-primaryHover rounded-full transition-all cursor-pointer z-50 shadow-lg"
+        >
+            <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                width="28" 
+                height="28" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="3" 
+                strokeLinecap="round" 
+                strokeLinejoin="round"
+            >
+                <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+        </button>
+
         <div className="flex flex-col justify-center flex-1 items-center gap-7 px-2 pt-30">
             <div className="flex flex-col items-center">
             <h1 className="text-4xl font-extrabold text-center">Számlázás</h1>

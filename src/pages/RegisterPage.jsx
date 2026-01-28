@@ -10,6 +10,7 @@ const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
+  const [aszfAccepted, setAszfAccepted] = useState(false);
   const navigate = useNavigate();
   const { setIsLoading } = useLoading()
 
@@ -20,6 +21,17 @@ const LoginPage = () => {
         icon: 'error',
         title: 'Hiba történt a regisztrációkor',
         text: 'Minden mező kötelező',
+        showConfirmButton: true
+      })
+      setIsLoading(false)
+      return;
+    }
+
+    if (!aszfAccepted) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Hiba történt a regisztrációkor',
+        text: 'Az ÁSZF és az Adatvédelmi Tájékoztató elfogadása kötelező',
         showConfirmButton: true
       })
       setIsLoading(false)
@@ -117,7 +129,7 @@ const LoginPage = () => {
   };
   return (
     <div className="flex bg-primary flex-col items-center justify-center h-screen">
-      <div className="bg-[#1F243280] sm:w-150.5 h-100 p-10 flex flex-col rounded-2xl gap-5">
+      <div className="bg-[#1F243280] sm:w-150.5 h-110 p-10 flex flex-col rounded-2xl gap-5">
         <Link to="/" className="text-white text-4xl font-bold text-center mb-5">
           fotonok.<span className="text-highlight">hu</span>
         </Link>
@@ -125,6 +137,15 @@ const LoginPage = () => {
         <Input inputType="auth" type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
         <Input inputType="auth" type="password" placeholder="Jelszó" value={password} onChange={e => setPassword(e.target.value)} />
         <Input inputType="auth" type="password" placeholder="Jelszó mégegyszer" value={password2} onChange={e => setPassword2(e.target.value)} />
+        <div className="flex flex-row gap-2">
+          <input 
+            type="checkbox" 
+            id="aszf" 
+            checked={aszfAccepted}
+            onChange={(e) => setAszfAccepted(e.target.checked)}
+          />
+          <label htmlFor="aszf" className="text-white"><span className="text-red-600">*</span>Elfogadom az <Link to="/aszf" className="text-blue-500">ÁSZF</Link>-et, és az <Link to="/adatvedelem" className="text-blue-500">AT</Link>-t</label>
+        </div>
 
         <div className="flex flex-col gap-1">
           <Button type="login" text="Regisztráció" onClick={handleRegister} />

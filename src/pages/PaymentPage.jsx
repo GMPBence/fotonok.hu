@@ -203,9 +203,11 @@ const PaymentPage = (props) => {
                 <h2 className="text-lg">{billingData.first_name ? `${billingData.first_name} ${billingData.last_name}` : "Új megadása"}</h2>
                 <img src={editImg} className="w-6 h-6" alt="" />
               </div>)
-            : <Input value={billingData?.email ? billingData?.email : ""} onChange={(e) => setBillingData({ email: e.target.value })} color="light" type="Email" />}
-            
-            
+            : (
+              <div className="w-75">
+                <Input value={billingData?.email ? billingData?.email : ""} onChange={(e) => setBillingData({ email: e.target.value })} color="light" type="Email" />
+              </div>
+            )}
             <div className="w-75">
               <h2 className="text-xl font-bold text-center"> Összesen: {plan?.price ? plan.price : 0} Ft</h2>
               <Button type="primary" text="Fizetés" onClick={handlePay} />
