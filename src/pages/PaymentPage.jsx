@@ -12,11 +12,14 @@ import Input from "../components/Input"
 const PaymentPage = (props) => {
   const [plan, setPlan] = useState();
   const [payment, setPayment] = useState("");
+  const { isLoading, setIsLoading } = useLoading(false);
   const { isReceiptNeeded, setIsReceiptNeeded } = useBilling(false);
+  const { billingData, setBillingData } = useBilling();
   const navigate = useNavigate();
 
   const fetchPlans = async () => {
     try {
+      console.log(billingData)
       setIsLoading(true)
       const res = await api.get("/plans/get?id=" + window.location.search.split("=")[1]);
       setIsLoading(false)
@@ -71,8 +74,20 @@ const PaymentPage = (props) => {
         setIsLoading(false)
         return;
       }
+      console.log(billingData)
+      if (!billingData) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Hiba történt a vásárlás során',
+          text: 'Muszáj megadni a fizetési adatokat',
+          showConfirmButton: true
+        })
+        setIsLoading(false)
+        return;
+      }
       const res = await api.post("/payment/checkout/" + payment, {
-        note_id: plan.note_id
+        note_id: plan.note_id,
+        billing_data: billingData
       });
       if (res.data.url) {
         Swal.fire({
@@ -183,11 +198,14 @@ const PaymentPage = (props) => {
                 <div className="bg-input-light text-[#828282] text-xl font-bold peer-checked:bg-input-dark peer-checked:text-white py-3 px-10 cursor-pointer">Számla</div>
               </label>
             </div>
-            <div className="bg-primary flex flex-row items-center justify-between text-white w-75 py-2 px-3 rounded-2xl cursor-pointer transition-all hover:scale-105">
-              <h2 className="text-lg">asda</h2>
-              <img src={editImg} className="w-6 h-6" alt="" />
-            </div>
-            <Input value="" color="light" type="Email" />
+            {isReceiptNeeded ? (
+              <div onClick={() => handleBillingType("invoice")} className="bg-primary flex flex-row items-center justify-between text-white w-75 py-2 px-3 rounded-2xl cursor-pointer transition-all hover:scale-105">
+                <h2 className="text-lg">{billingData.first_name ? `${billingData.first_name} ${billingData.last_name}` : "Új megadása"}</h2>
+                <img src={editImg} className="w-6 h-6" alt="" />
+              </div>)
+            : <Input value={billingData?.email ? billingData?.email : ""} onChange={(e) => setBillingData({ email: e.target.value })} color="light" type="Email" />}
+            
+            
             <div className="w-75">
               <h2 className="text-xl font-bold text-center"> Összesen: {plan?.price ? plan.price : 0} Ft</h2>
               <Button type="primary" text="Fizetés" onClick={handlePay} />

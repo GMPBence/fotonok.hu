@@ -6,6 +6,8 @@ function Input(props) {
           type="text"
           className="bg-input-light text-[#828282] px-4 py-2 text-xl font-bold rounded-md w-full"
           placeholder={props.type}
+          value={props.value}
+          onChange={props.onChange}
         />
       </div>
     );
