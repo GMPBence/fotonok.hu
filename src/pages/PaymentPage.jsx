@@ -7,11 +7,12 @@ import { useEffect, useState } from "react";
 import api from "../app/api";
 import { useBilling, useLoading } from "../context/LoadingContext";
 import Swal from "sweetalert2";
+import editImg from "../assets/images/edit.png";
+import Input from "../components/Input"
 const PaymentPage = (props) => {
   const [plan, setPlan] = useState();
   const [payment, setPayment] = useState("");
-  const { setIsLoading } = useLoading()
-  const {isReceiptNeeded, setIsReceiptNeeded} = useBilling(false);
+  const { isReceiptNeeded, setIsReceiptNeeded } = useBilling(false);
   const navigate = useNavigate();
 
   const fetchPlans = async () => {
@@ -182,6 +183,11 @@ const PaymentPage = (props) => {
                 <div className="bg-input-light text-[#828282] text-xl font-bold peer-checked:bg-input-dark peer-checked:text-white py-3 px-10 cursor-pointer">Számla</div>
               </label>
             </div>
+            <div className="bg-primary flex flex-row items-center justify-between text-white w-75 py-2 px-3 rounded-2xl cursor-pointer transition-all hover:scale-105">
+              <h2 className="text-lg">asda</h2>
+              <img src={editImg} className="w-6 h-6" alt="" />
+            </div>
+            <Input value="" color="light" type="Email" />
             <div className="w-75">
               <h2 className="text-xl font-bold text-center"> Összesen: {plan?.price ? plan.price : 0} Ft</h2>
               <Button type="primary" text="Fizetés" onClick={handlePay} />
