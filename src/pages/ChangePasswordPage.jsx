@@ -15,10 +15,58 @@ const ChangePasswordPage = (props) => {
   const [newpassword2, setNewpassword2] = useState("");
   const [newEmail, setNewEmail] = useState("");
   const navigate = useNavigate();
-  const {setIsLoading} = useLoading()
+  const { setIsLoading } = useLoading()
 
   const handleRadioChange = (value) => {
     setSelectedOption(value);
+  }
+
+  const handleDeleteClick = async () => {
+    const result = await Swal.fire({
+      icon: 'warning',
+      title: 'Fiók törlése',
+      text: 'Biztosan törölni szeretnéd a fiókodat? Az összes általad vásárolt jegyzet elveszik!',
+      showCancelButton: true,
+      confirmButtonColor: '#dc2626',
+      cancelButtonColor: '#6b7280',
+      confirmButtonText: 'Törlés',
+      cancelButtonText: 'Mégse'
+    });
+
+    if (result.isConfirmed) {
+      setIsLoading(true);
+
+      try {
+        const res = await api.post("/account/delete");
+
+        setIsLoading(false);
+
+        if (res.data.message) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Fiók sikeresen törölve',
+            showConfirmButton: false,
+            timer: 1500
+          });
+
+          localStorage.removeItem("token");
+
+          setTimeout(() => {
+            navigate("/");
+            window.location.reload();
+          }, 1500);
+        }
+      } catch (err) {
+        setIsLoading(false);
+
+        Swal.fire({
+          icon: 'error',
+          title: 'Hiba történt a fiók törlésekor',
+          text: err?.response?.data?.error || 'Ismeretlen hiba',
+          showConfirmButton: true,
+        });
+      }
+    }
   }
 
   const handleResetPassword = async () => {
@@ -33,7 +81,7 @@ const ChangePasswordPage = (props) => {
       setIsLoading(false)
       return;
     }
-  
+
     if (newpassword !== newpassword2) {
       Swal.fire({
         icon: 'error',
@@ -44,7 +92,7 @@ const ChangePasswordPage = (props) => {
       setIsLoading(false)
       return;
     }
-    
+
     try {
       const res = await api.post("/auth/reset/password", {
         oldpassword: password,
@@ -84,7 +132,7 @@ const ChangePasswordPage = (props) => {
           text: 'A jelszó hossza maximum 255 karakter lehet',
           showConfirmButton: true,
         })
-      } else if(err?.response?.data?.error === "invalid_credentials") {
+      } else if (err?.response?.data?.error === "invalid_credentials") {
         Swal.fire({
           icon: 'error',
           title: 'Hiba történt a jelszó változtatáskor',
@@ -160,34 +208,40 @@ const ChangePasswordPage = (props) => {
           <div className="bg-highlight h-1 mt-0.5 rounded-2xl w-[50%]"></div>
         </div>
         <div className="flex flex-col w-full items-center">
-          <Button 
-            type="billing" 
+          <Button
+            type="billing"
             name="accountSettings"
-            id1="password" 
-            id2="email" 
-            label1="Jelszó" 
-            label2="Email" 
-            onChange={handleRadioChange} 
+            id1="password"
+            id2="email"
+            label1="Jelszó"
+            label2="Email"
+            onChange={handleRadioChange}
           />
 
           {selectedOption === "password" && (
             <div className="w-full max-w-100 flex flex-col gap-5 mt-5">
-              <Input placeholder="Jelenlegi jelszó" type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
-              <Input placeholder="Új jelszó" type="password" value={newpassword} onChange={(e) => setNewpassword(e.target.value)}/>
-              <Input placeholder="Új jelszó újra" type="password" value={newpassword2} onChange={(e) => setNewpassword2(e.target.value)}/>
+              <Input placeholder="Jelenlegi jelszó" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+              <Input placeholder="Új jelszó" type="password" value={newpassword} onChange={(e) => setNewpassword(e.target.value)} />
+              <Input placeholder="Új jelszó újra" type="password" value={newpassword2} onChange={(e) => setNewpassword2(e.target.value)} />
               <Button type="save" text="Jelszó váltás" onClick={handleResetPassword} />
             </div>
           )}
 
           {selectedOption === "email" && (
             <div className="w-full max-w-100 flex flex-col gap-5 mt-5">
-              <Input placeholder="Jelenlegi jelszó" type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
-              <Input placeholder="Új email cím" type="email" value={newEmail} onChange={(e) => setNewEmail(e.target.value)}/>
+              <Input placeholder="Jelenlegi jelszó" type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+              <Input placeholder="Új email cím" type="email" value={newEmail} onChange={(e) => setNewEmail(e.target.value)} />
               <Button type="save" text="Email váltás" onClick={handleChangeEmail} />
             </div>
           )}
         </div>
+        <div className="flex flex-col items-center w-full max-w-100">
+          <h1 className="text-2xl font-extrabold text-center">Fiók törlése</h1>
+          <div className="bg-highlight h-1 mt-0.5 rounded-2xl w-[50%]"></div>
+          <button onClick={handleDeleteClick} className="mt-5 bg-red-600 text-white px-4 py-2 text-xl font-bold rounded-md w-full cursor-pointer hover:bg-red-400 transition-all hover:scale-105">Törlés</button>
+        </div>
       </div>
+
       <Footer />
     </div>
   );
