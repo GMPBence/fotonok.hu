@@ -10,7 +10,7 @@ import Swal from "sweetalert2";
 const PaymentPage = (props) => {
   const [plan, setPlan] = useState();
   const [payment, setPayment] = useState("");
-  const {setIsLoading} = useLoading()
+  const { setIsLoading } = useLoading()
   const navigate = useNavigate();
 
   const fetchPlans = async () => {
@@ -72,28 +72,28 @@ const PaymentPage = (props) => {
         setTimeout(() => {
           window.location.href = res.data.url;
         }, 1500);
-      } 
+      }
       setIsLoading(false)
     } catch (err) {
       if (err?.response?.data?.error === "user_already_has_note") {
         Swal.fire({
           icon: 'error',
           title: 'Hiba történt a vásárlás során',
-          text: 'Már megvetted ezt a jegyzetet',          
+          text: 'Már megvetted ezt a jegyzetet',
           showConfirmButton: true
         })
-      } else if (err?.response?.data?.error === "missing_data"){
+      } else if (err?.response?.data?.error === "missing_data") {
         Swal.fire({
           icon: 'error',
           title: 'Hiba történt a vásárlás során',
-          text: 'A jegyzet azonosítólya hiányzik, kérlek próbáld újra',          
+          text: 'A jegyzet azonosítólya hiányzik, kérlek próbáld újra',
           showConfirmButton: true
         })
-      } else if (err?.response?.data?.error === "note_not_found"){
+      } else if (err?.response?.data?.error === "note_not_found") {
         Swal.fire({
           icon: 'error',
           title: 'Hiba történt a vásárlás során',
-          text: 'Nincs ilyen jegyzet',          
+          text: 'Nincs ilyen jegyzet',
           showConfirmButton: true
         })
       } else {
@@ -116,25 +116,25 @@ const PaymentPage = (props) => {
           <div className="bg-highlight h-1 mt-1 rounded-2xl w-[50%]"></div>
         </div>
         {plan ? (<div className="flex flex-col sm:flex-row gap-10 sm:gap-30">
-          
+
           {plan ? <Card
-              key={plan.note_id}
-              title={plan.title}
-              src={plan.img_path}
-              desc={plan.description}
-              price={plan.price}
-              type="payment"
-              content={JSON.parse(plan.summary)}
-              noteId={plan.note_id}
-            />
+            key={plan.note_id}
+            title={plan.title}
+            src={plan.img_path}
+            desc={plan.description}
+            price={plan.price}
+            type="payment"
+            content={JSON.parse(plan.summary)}
+            noteId={plan.note_id}
+          />
             :
             <h1>Nincs ilyen csomag</h1>
           }
           <div className="flex flex-col gap-5 items-center">
             <h1 className="text-xl font-bold">Mivel szeretnél fizetni?</h1>
             <label checked={payment === "stripe"} onChange={() => setPayment("stripe")} htmlFor="card" className="block">
-              <input  type="radio" name="payment" id="card" className="hidden peer" />
-              <div className="bg-primary text-white w-[300px] h-20 text-center py-2 px-3 rounded-2xl cursor-pointer peer-checked:border-4 peer-checked:border-highlight transition-all hover:scale-105" >
+              <input type="radio" name="payment" id="card" className="hidden peer" />
+              <div className="bg-primary text-white w-75 h-20 text-center py-2 px-3 rounded-2xl cursor-pointer peer-checked:border-4 peer-checked:border-highlight transition-all hover:scale-105" >
                 <h2 className="text-lg">Bankkártya</h2>
                 <p className="text-xs">Egyszerű, és biztonságos fizetés bankkártyával.</p>
               </div>
@@ -142,18 +142,18 @@ const PaymentPage = (props) => {
 
             <label htmlFor="paypal" className="block">
               <input checked={payment === "paypal"} onChange={() => setPayment("paypal")} type="radio" name="payment" id="paypal" className="hidden peer" />
-              <div className="bg-primary text-white w-[300px] h-20  text-center py-2 px-3 rounded-2xl cursor-pointer peer-checked:border-4 peer-checked:border-highlight transition-all hover:scale-105">
+              <div className="bg-primary text-white w-75 h-20  text-center py-2 px-3 rounded-2xl cursor-pointer peer-checked:border-4 peer-checked:border-highlight transition-all hover:scale-105">
                 <h2 className="text-lg">PayPal</h2>
                 <p className="text-xs">Kényelmes, és gyors fizetés a paypal fiokoddal.</p>
               </div>
             </label>
-            <div className="w-[300px]"> 
+            <div className="w-75">
               <h2 className="text-xl font-bold text-center"> Összesen: {plan?.price ? plan.price : 0} Ft</h2>
-              <Button type="primary" text="Fizetés" onClick={handlePay}/>
+              <Button type="primary" text="Fizetés" onClick={handlePay} />
             </div>
           </div>
         </div>) : <>Nincs ilyen csomag</>}
-        
+
       </div>
       <Footer />
     </div>
