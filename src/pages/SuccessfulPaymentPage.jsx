@@ -11,12 +11,12 @@ const SuccessfulPaymentPage = (props) => {
           <h1 className="text-4xl font-extrabold">Sikeres Vásárlás!</h1>
           <div className="bg-highlight h-1 mt-1 rounded-2xl w-[50%]"></div>
         </div>
-          <p className="sm:w-125 text-center text-xl">
-            Köszönjük a vásárlását, amennyiben 5 percen bellül nem kapja meg a
-            vásárolt terméket, kérjük keressen minket fel a bajan@fotonok.hu
-            emailcímen keresztül!
-          </p>
-          <Link to="/"className=""><Button type ="primary" text="Vissza a főoldalra"/></Link>
+        <p className="sm:w-125 text-center text-xl">
+          Köszönjük a vásárlását, amennyiben 5 percen bellül nem kapja meg a
+          vásárolt terméket, kérjük keressen minket fel a info@fotonok.hu
+          emailcímen keresztül!
+        </p>
+        <Link to="/" className=""><Button type="primary" text="Vissza a főoldalra" /></Link>
       </div>
       <Footer />
     </div>
