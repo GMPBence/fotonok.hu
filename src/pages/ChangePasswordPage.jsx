@@ -37,7 +37,7 @@ const ChangePasswordPage = (props) => {
       setIsLoading(true);
 
       try {
-        const res = await api.post("/account/delete");
+        const res = await api.post("/auth/account/delete");
 
         setIsLoading(false);
 
