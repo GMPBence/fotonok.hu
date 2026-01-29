@@ -138,13 +138,13 @@ const LoginPage = () => {
         <Input inputType="auth" type="password" placeholder="Jelszó" value={password} onChange={e => setPassword(e.target.value)} />
         <Input inputType="auth" type="password" placeholder="Jelszó mégegyszer" value={password2} onChange={e => setPassword2(e.target.value)} />
         <div className="flex flex-row gap-2">
-          <input 
-            type="checkbox" 
-            id="aszf" 
+          <input
+            type="checkbox"
+            id="aszf"
             checked={aszfAccepted}
             onChange={(e) => setAszfAccepted(e.target.checked)}
           />
-          <label htmlFor="aszf" className="text-white"><span className="text-red-600">*</span>Elfogadom az <Link to="/aszf" className="text-blue-500">ÁSZF</Link>-et, és az <Link to="/adatvedelem" className="text-blue-500">AT</Link>-t</label>
+          <label htmlFor="aszf" className="text-white"><span className="text-red-600">*</span>Elfogadom az <Link to="https://fotonok.hu/docs/aszf.pdf" className="text-blue-500">ÁSZF</Link>-et, és az <Link to="https://fotonok.hu/docs/at.pdf" className="text-blue-500">AT</Link>-t</label>
         </div>
 
         <div className="flex flex-col gap-1">

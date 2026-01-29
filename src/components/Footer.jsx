@@ -20,8 +20,8 @@ function Footer() {
           <div>
             <p>Dokumentumok:</p>
             <div className="flex flex-row gap-3">
-              <Link to="asd" className="text-xs" title="Általános szerződési feltételek">ÁSZF</Link>
-              <Link to="asd" className="text-xs" title="Adatvédelmi tájékoztató">AT</Link>
+              <Link to="https://fotonok.hu/docs/aszf.pdf" className="text-xs" title="Általános szerződési feltételek">ÁSZF</Link>
+              <Link to="https://fotonok.hu/docs/at.pdf" className="text-xs" title="Adatvédelmi tájékoztató">AT</Link>
             </div>
           </div>
           <div>
