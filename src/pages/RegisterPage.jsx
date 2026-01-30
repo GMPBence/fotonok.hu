@@ -144,9 +144,8 @@ const LoginPage = () => {
             checked={aszfAccepted}
             onChange={(e) => setAszfAccepted(e.target.checked)}
           />
-          <label htmlFor="aszf" className="text-white"><span className="text-red-600">*</span>Elfogadom az <Link to="https://fotonok.hu/docs/aszf.pdf" className="text-blue-500">ÁSZF</Link>-et, és az <Link to="https://fotonok.hu/docs/at.pdf" className="text-blue-500">AT</Link>-t</label>
+          <label htmlFor="aszf" className="text-white"><span className="text-red-600">*</span>Elfogadom az <a href="https://fotonok.hu/docs/aszf.pdf" target="_blank" rel="noopener noreferrer" className="text-xs" title="Általános szerződési feltételek">ÁSZF</a>-et, és az <a href="https://fotonok.hu/docs/at.pdf" target="_blank" rel="noopener noreferrer" className="text-xs" title="Adatvédelmi tájékoztató">AT</a>-t</label>
         </div>
-
         <div className="flex flex-col gap-1">
           <Button type="login" text="Regisztráció" onClick={handleRegister} />
           <Link to="/login" className="text-white">
