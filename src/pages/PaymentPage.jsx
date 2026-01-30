@@ -2,7 +2,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Button from "../components/Button";
 import Card from "../components/Card";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import api from "../app/api";
 import { useBilling, useLoading } from "../context/LoadingContext";
@@ -16,10 +16,10 @@ const PaymentPage = (props) => {
   const { isReceiptNeeded, setIsReceiptNeeded } = useBilling(false);
   const { billingData, setBillingData } = useBilling();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const fetchPlans = async () => {
     try {
-      console.log(billingData)
       setIsLoading(true)
       const res = await api.get("/plans/get?id=" + window.location.search.split("=")[1]);
       setIsLoading(false)
@@ -48,7 +48,6 @@ const PaymentPage = (props) => {
   };
 
   const handleBillingType = (type) => {
-    console.log(type)
     if (type === "invoice") {
       setIsReceiptNeeded(true)
       navigate("/billing?id=" + window.location.search.split("=")[1])
@@ -56,10 +55,14 @@ const PaymentPage = (props) => {
       setIsReceiptNeeded(false)
     }
   }
-
+  let timer = 0;
   useEffect(() => {
+    timer++;
+    if (timer != 1) {
+      return
+    }
     fetchPlans();
-  }, []);
+  }, [location.key]);
 
   const handlePay = async () => {
     setIsLoading(true)
@@ -74,7 +77,6 @@ const PaymentPage = (props) => {
         setIsLoading(false)
         return;
       }
-      console.log(billingData)
       if (!billingData) {
         Swal.fire({
           icon: 'error',

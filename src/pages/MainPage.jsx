@@ -83,7 +83,14 @@ const MainPage = (props) => {
     }
   }
 
-  useEffect( () => { fetchPlans() }, []);
+  let timer = 0;
+  useEffect( () => { 
+    timer++
+    if (timer != 1) {
+      return
+    }
+    fetchPlans() 
+  }, []);
 
   const checkNew = (time) => {
     if (Date.now() - time > 7 * 24 * 60 * 60 * 1000) {

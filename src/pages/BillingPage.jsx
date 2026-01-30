@@ -69,14 +69,13 @@ const BillingPage = (props) => {
             phone: formData.phone
         });
         }
-        console.log(billingData);
-        console.log(formData.city, formData.country, formData.email, formData.first_name, formData.last_name, formData.postal_code, formData.street, formData.tax_number);
         navigate("/payment?id=" + new URLSearchParams(window.location.search).get("id"));
     };
 
     const handleBack = () => {
-        const id = new URLSearchParams(window.location.search).get("id");
-        navigate(`/payment?id=${id}`);
+        setIsReceiptNeeded(false);
+        setBillingData(billingData?.email ? { email: billingData.email } : {});
+        navigate("/payment?id=" + new URLSearchParams(window.location.search).get("id"));
     };
 
     return (
@@ -117,6 +116,7 @@ const BillingPage = (props) => {
                 label1="Nyugta"
                 label2="Számla"
                 onChange={setSelectedOption}
+                default={2}
             />
 
             {selectedOption === "recipt1" && (

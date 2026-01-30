@@ -216,6 +216,7 @@ const ChangePasswordPage = (props) => {
             label1="Jelszó"
             label2="Email"
             onChange={handleRadioChange}
+            default={1}
           />
 
           {selectedOption === "password" && (

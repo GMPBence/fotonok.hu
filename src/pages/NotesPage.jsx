@@ -25,8 +25,12 @@ const NotesPage = (props) => {
       setIsLoading(false)
     }
   };
-
+  let timer = 0;
   useEffect(() => {
+    timer++;
+    if (timer != 1) {
+      return
+    }
     fetchPlans();
   }, []);
 
