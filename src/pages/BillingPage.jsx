@@ -5,6 +5,7 @@ import Button from "../components/Button";
 import Input from "../components/Input";
 import { useBilling } from "../context/LoadingContext";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const BillingPage = (props) => {
     const [selectedOption, setSelectedOption] = useState("recipt2");
@@ -19,11 +20,25 @@ const BillingPage = (props) => {
         city: billingData?.city || "",
         street: billingData?.street || "",
         postal_code: billingData?.postal_code || "",
-        tax_number: billingData?.tax_number || ""
+        tax_number: billingData?.tax_number || "",
+        phone: billingData?.phone || ""
     });
 
     const handleChange = (field, value) => {
-        console.log(field, value);
+        if (field === "phone"){
+            if (value.startsWith('+')) {
+                value = '+' + value.slice(1).replace(/\D/g,'');
+            } else {
+                value = value.replace(/\D/g,'');
+            }
+
+            if(value.startsWith("+") && value.length > 12) {
+                value = value.slice(0, 12);
+            } else if(!value.startsWith("+") && value.length > 11) {
+                value = value.slice(0, 11);
+            }
+
+        }
         setFormData(prev => ({ ...prev, [field]: value }));
     };
 
@@ -33,6 +48,15 @@ const BillingPage = (props) => {
         setBillingData({ email: formData.email });
         } else {
         setIsReceiptNeeded(true);
+        if (!formData.last_name || !formData.first_name || !formData.country || !formData.city || !formData.street || !formData.postal_code || !formData.email) {
+            Swal.fire({
+            icon: "error",
+            title: "Hiba",
+            text: "Kérjük, töltse ki a kötelező mezőket!",
+            confirmButtonText: "Rendben"
+            });
+            return;
+        }
         setBillingData({
             last_name: formData.last_name,
             first_name: formData.first_name,
@@ -41,7 +65,8 @@ const BillingPage = (props) => {
             street: formData.street,
             postal_code: formData.postal_code,
             email: formData.email,
-            tax_number: formData.tax_number
+            tax_number: formData.tax_number,
+            phone: formData.phone
         });
         }
         console.log(billingData);
@@ -118,6 +143,7 @@ const BillingPage = (props) => {
 
                 <Input value={formData.tax_number} onChange={e => handleChange("tax_number", e.target.value)} color="light" type="Adószám (opcionális)" />
                 <Input value={formData.email} onChange={e => handleChange("email", e.target.value)} color="light" type="Email" />
+                <Input value={formData.phone} onChange={e => handleChange("phone", e.target.value)} color="light" type="Telefonszám" />
                 <Button onClick={handleSave} type="save" text="Mentés" />
                 </div>
             )}
