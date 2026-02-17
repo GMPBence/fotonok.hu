@@ -99,7 +99,7 @@ const MainPage = (props) => {
     return true;
   }
   const checkPopular = (time) => {
-    if (Date.now() - time > 30 * 24 * 60 * 60 * 1000) {
+    if (Date.now() - time > 14 * 24 * 60 * 60 * 1000) {
       return false;
     }
     return true;
