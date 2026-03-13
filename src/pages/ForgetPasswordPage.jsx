@@ -10,23 +10,26 @@ const LoginPage = () => {
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
   const {setIsLoading} = useLoading()
+  const errorMessages = {
+    missing_data: 'Minden mező kötelező',
+    invalid_credentials: 'A megadott emailcím nem létezik a rendszerünkben',
+    internal: 'Szerverhiba, próbáld meg később',
+  };
+
   const handleForgotPassword = async () => {
-    setIsLoading(true)
     if (!email) {
       Swal.fire({
         icon: 'error',
-        title: 'Hiba történt jelszóváltásズben',
+        title: 'Hiba történt a jelszó változtatáskor',
         text: 'Minden mező kötelező',
-        showConfirmButton: true
-      })
-      setIsLoading(false)
+        showConfirmButton: true,
+      });
       return;
     }
+
+    setIsLoading(true);
     try {
-      const res = await api.post("/auth/forgotpassword", {
-        email
-      });
-      setIsLoading(false)
+      const res = await api.post("/auth/forgotpassword", { email });
       if (res.data.message) {
         localStorage.setItem("email", email);
         Swal.fire({
@@ -34,45 +37,23 @@ const LoginPage = () => {
           title: 'Sikeresen elküldted az emailt',
           text: 'A jelszóváltáshoz tartozó kódot a megadott emailcímre kiküldtük',
           showConfirmButton: false,
-          timer: 1500
-        })
+          timer: 1500,
+        });
         setTimeout(() => {
           navigate("/forgotpassword/complete");
         }, 1500);
       }
     } catch (err) {
-      if (err?.response?.data?.error === "missing_data") {
-        Swal.fire({
-          icon: 'error',
-          title: 'Hiba történt a jelszó változtatáskor',
-          text: 'Minden mező kötelező',
-          showConfirmButton: true,
-        })
-      } else if (err?.response?.data?.error === "invalid_credentials") {
-        Swal.fire({
-          icon: 'error',
-          title: 'Hiba történt a jelszó változtatáskor',
-          text: 'A megadott emailcím nem letezik a rendszerünkben',
-          showConfirmButton: true,
-        })
-      } else if (err?.response?.data?.error === "internal") {
-        Swal.fire({
-          icon: 'error',
-          title: 'Hiba történt a jelszó változtatáskor',
-          text: 'Szerverhiba, próbáld meg késöbb',
-          showConfirmButton: true,
-        })
-      } else {
-        Swal.fire({
-          icon: 'error',
-          title: 'Hiba történt a jelszó változtatáskor',
-          text: err?.response?.data?.error,
-          showConfirmButton: true,
-        })
-      }
-      setIsLoading(false)
+      const errorCode = err?.response?.data?.error;
+      Swal.fire({
+        icon: 'error',
+        title: 'Hiba történt a jelszó változtatáskor',
+        text: errorMessages[errorCode] || errorCode,
+        showConfirmButton: true,
+      });
+    } finally {
+      setIsLoading(false);
     }
-      
   }
   return (
     <div className="flex bg-primary  flex-col items-center justify-center h-screen">
