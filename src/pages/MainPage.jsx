@@ -12,16 +12,24 @@ import Swal from "sweetalert2";
 import getPlansBySeacrh from "../app/search";
 import sortPlans from "../app/sort";
 
+const howItWorksCards = [
+  { title: " 1. Lépés", content: "Hozz létre egy Profilt" },
+  { title: " 2. Lépés", content: "Válasszd ki a megfelelő jegyzetet" },
+  { title: " 3. Lépés", content: "Vásárold meg a kiválasztott jegyzetet" },
+  { title: " 4. Lépés", content: "Töltsd le a “jegyzeteim” fülnél" },
+
+]
+
 const MainPage = (props) => {
   const [plans, setPlans] = useState([]);
   const [plansByBackend, setPlansByBackend] = useState([]);
-  const {setIsLoading, isLoading} = useLoading()
+  const { setIsLoading, isLoading } = useLoading()
   const [search, setSearch] = useState("");
   const [navbarSearch, setNavbarSearch] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
   const { isReceiptNeeded, setIsReceiptNeeded } = useBilling();
 
-    const fetchPlans = async () => {
+  const fetchPlans = async () => {
     try {
       const res = await api.get("/plans/get/all");
 
@@ -84,12 +92,12 @@ const MainPage = (props) => {
   }
 
   let timer = 0;
-  useEffect( () => { 
+  useEffect(() => {
     timer++
     if (timer != 1) {
       return
     }
-    fetchPlans() 
+    fetchPlans()
   }, []);
 
   const checkNew = (time) => {
@@ -171,26 +179,14 @@ const MainPage = (props) => {
           <div className="w-[70%] h-1 bg-highlight rounded-2xl mb-10"></div>
         </div>
         <div className=" grid md:grid-cols-2   xl:grid-cols-4 mb-12.5 gap-12.5 ">
-          <Card
-            type="small"
-            title="1. Lépés"
-            content="Hozz létre egy Profilt"
-          />
-          <Card
-            type="small"
-            title="2. Lépés"
-            content="Válasszd ki a megfelelő jegyzetet"
-          />
-          <Card
-            type="small"
-            title="3. Lépés"
-            content="Vásárold meg a kiválasztott jegyzetet"
-          />
-          <Card
-            type="small"
-            title="4. Lépés"
-            content="Töltsd le a “jegyzeteim” fülnél"
-          />
+          {howItWorksCards.map((card) => (
+            <Card
+              type="small"
+              key={card.title}
+              title={card.title}
+              content={card.content}
+            />
+          ))}
         </div>
       </div>
       <Footer />
