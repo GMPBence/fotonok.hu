@@ -59,49 +59,20 @@ function Card(props) {
       }
     } catch (err) {
       setIsLoading(false)
-      if (err?.response?.data?.error === "user_already_has_plan") {
-        Swal.fire({
-          icon: 'error',
-          title: 'Hiba történt a beszerzés során',
-          text: 'Te már beszerezted ezt a jegyzetet',          
-          showConfirmButton: true
-        })
-      } else if (err?.response?.data?.error === "note_not_found") {
-        Swal.fire({
-          icon: 'error',
-          title: 'Hiba történt a beszerzés során',
-          text: 'A jegyzet nem található',          
-          showConfirmButton: true
-        })
-      } else if (err?.response?.data?.error === "user_not_found") {
-        Swal.fire({
-          icon: 'error',
-          title: 'Hiba történt a beszerzés során',
-          text: 'A felhasználó nem találhato',          
-          showConfirmButton: true
-        })
-      } else if(err?.response?.data?.error === "missing_data") {
-        Swal.fire({
-          icon: 'error',
-          title: 'Hiba történt a beszerzés során',
-          text: 'A jegyzet azonosítója nincs megadva',          
-          showConfirmButton: true
-        })
-      } else if (err?.response?.data?.error === "internal") {
-        Swal.fire({
-          icon: 'error',
-          title: 'Hiba történt a beszerzés során',
-          text: 'Szerverhiba, próbáld meg késöbb',          
-          showConfirmButton: true
-        })
-      } else {
-        Swal.fire({
-          icon: 'error',
-          title: 'Hiba történt a beszerzés során',
-          text: err?.response?.data?.error,          
-          showConfirmButton: true
-        })
+      const errorMessages = {
+        user_already_has_plan: 'Te már beszerezted ezt a jegyzetet',
+        note_not_found: 'A jegyzet nem található',
+        user_not_found: 'A felhasználó nem találhato',
+        missing_data: 'A jegyzet azonosítója nincs megadva',
+        internal: 'Szerverhiba, próbáld meg késöbb',
       }
+      const errorCode = err?.response?.data?.error
+      Swal.fire({
+        icon: 'error',
+        title: 'Hiba történt a beszerzés során',
+        text: errorMessages[errorCode] || errorCode,
+        showConfirmButton: true
+      })
     }
   }
 
