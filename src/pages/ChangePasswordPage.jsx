@@ -17,6 +17,14 @@ const ChangePasswordPage = (props) => {
   const navigate = useNavigate();
   const { setIsLoading } = useLoading()
 
+  const passwordErrorMessages = {
+    missing_data: 'Minden mező kötelező',
+    password_too_short: 'A jelszó hossza minimum 3 karakter kell',
+    password_too_long: 'A jelszó hossza maximum 255 karakter lehet',
+    invalid_credentials: 'Nem adhatod meg ugyan azt a jelszót, amit jelenleg is használsz',
+    internal: 'Szerverhiba, próbáld meg később',
+  };
+
   const handleRadioChange = (value) => {
     setSelectedOption(value);
   }
@@ -35,50 +43,42 @@ const ChangePasswordPage = (props) => {
 
     if (result.isConfirmed) {
       setIsLoading(true);
-
       try {
         const res = await api.post("/auth/account/delete");
-
-        setIsLoading(false);
-
         if (res.data.message) {
           Swal.fire({
             icon: 'success',
             title: 'Fiók sikeresen törölve',
             showConfirmButton: false,
-            timer: 1500
+            timer: 1500,
           });
-
           localStorage.removeItem("token");
-
           setTimeout(() => {
             navigate("/");
             window.location.reload();
           }, 1500);
         }
       } catch (err) {
-        setIsLoading(false);
-
         Swal.fire({
           icon: 'error',
           title: 'Hiba történt a fiók törlésekor',
           text: err?.response?.data?.error || 'Ismeretlen hiba',
           showConfirmButton: true,
         });
+      } finally {
+        setIsLoading(false);
       }
     }
   }
 
   const handleResetPassword = async () => {
-    setIsLoading(true)
     if (!newpassword || !newpassword2 || !password) {
       Swal.fire({
         icon: 'error',
         title: 'Hiba történt jelszóváltás közben',
         text: 'Minden mező kötelező',
-        showConfirmButton: true
-      })
-      setIsLoading(false)
+        showConfirmButton: true,
+      });
       return;
     }
 
@@ -87,103 +87,65 @@ const ChangePasswordPage = (props) => {
         icon: 'error',
         title: 'Hiba történt jelszóváltás közben',
         text: 'A jelszavak nem egyeznek',
-        showConfirmButton: true
-      })
-      setIsLoading(false)
+        showConfirmButton: true,
+      });
       return;
     }
 
+    setIsLoading(true);
     try {
       const res = await api.post("/auth/reset/password", {
         oldpassword: password,
-        newpassword: newpassword
+        newpassword: newpassword,
       });
-      setIsLoading(false)
       if (res.data.message) {
         Swal.fire({
           icon: 'success',
           title: 'Sikeres jelszóváltás',
           showConfirmButton: false,
-          timer: 1500
-        })
+          timer: 1500,
+        });
         setTimeout(() => {
           navigate("/");
         }, 1500);
       }
     } catch (err) {
-      if (err?.response?.data?.error === "missing_data") {
-        Swal.fire({
-          icon: 'error',
-          title: 'Hiba történt a jelszó változtatáskor',
-          text: 'Minden mező kötelező',
-          showConfirmButton: true,
-        })
-      } else if (err?.response?.data?.error === "password_too_short") {
-        Swal.fire({
-          icon: 'error',
-          title: 'Hiba történt a jelszó változtatáskor',
-          text: 'A jelszó hossza minimum 3 karakter kell',
-          showConfirmButton: true,
-        })
-      } else if (err?.response?.data?.error === "password_too_long") {
-        Swal.fire({
-          icon: 'error',
-          title: 'Hiba történt a jelszó változtatáskor',
-          text: 'A jelszó hossza maximum 255 karakter lehet',
-          showConfirmButton: true,
-        })
-      } else if (err?.response?.data?.error === "invalid_credentials") {
-        Swal.fire({
-          icon: 'error',
-          title: 'Hiba történt a jelszó változtatáskor',
-          text: 'Nem adhatod meg ugyan azt a jelszót, amit jelenleg is használsz',
-          showConfirmButton: true,
-        })
-      } else if (err?.response?.data?.error === "internal") {
-        Swal.fire({
-          icon: 'error',
-          title: 'Hiba történt a jelszó változtatáskor',
-          text: 'Szerverhiba, próbáld meg késöbb',
-          showConfirmButton: true,
-        })
-      } else {
-        Swal.fire({
-          icon: 'error',
-          title: 'Hiba történt a jelszó változtatáskor',
-          text: err?.response?.data?.error,
-          showConfirmButton: true,
-        })
-      }
-      setIsLoading(false)
+      const errorCode = err?.response?.data?.error;
+      Swal.fire({
+        icon: 'error',
+        title: 'Hiba történt a jelszó változtatáskor',
+        text: passwordErrorMessages[errorCode] || errorCode,
+        showConfirmButton: true,
+      });
+    } finally {
+      setIsLoading(false);
     }
   }
 
   const handleChangeEmail = async () => {
-    setIsLoading(true)
     if (!newEmail || !password) {
       Swal.fire({
         icon: 'error',
         title: 'Hiba történt email változtatáskor',
         text: 'Minden mező kötelező',
-        showConfirmButton: true
-      })
-      setIsLoading(false)
+        showConfirmButton: true,
+      });
       return;
     }
 
+    setIsLoading(true);
     try {
       const res = await api.post("/auth/reset/email", {
         password: password,
-        newEmail: newEmail
+        newEmail: newEmail,
       });
-      setIsLoading(false)
       if (res.data.message) {
         Swal.fire({
           icon: 'success',
           title: 'Sikeres email változtatás',
           showConfirmButton: false,
-          timer: 1500
-        })
+          timer: 1500,
+        });
         setTimeout(() => {
           navigate("/");
         }, 1500);
@@ -194,8 +156,9 @@ const ChangePasswordPage = (props) => {
         title: 'Hiba történt email változtatáskor',
         text: err?.response?.data?.error || 'Ismeretlen hiba',
         showConfirmButton: true,
-      })
-      setIsLoading(false)
+      });
+    } finally {
+      setIsLoading(false);
     }
   }
 
