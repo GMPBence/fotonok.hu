@@ -12,107 +12,66 @@ const LoginPage = () => {
   const [newpassword2, setNewpassword2] = useState("");
   const navigate = useNavigate();
   const {setIsLoading} = useLoading()
+
+  const errorMessages = {
+    missing_data: 'Minden mező kötelező',
+    internal: 'Szerverhiba, próbáld meg később',
+    invalid_code: 'A megadott kód helytelen',
+    password_too_short: 'A jelszó hossza minimum 3 karakter kell',
+    password_too_long: 'A jelszó hossza maximum 255 karakter lehet',
+  };
+
   const handleForgotPassword = async () => {
-    setIsLoading(true)
-    if (!localStorage.getItem("email") || !code) {
+    if (!localStorage.getItem("email") || !code || !newpassword || !newpassword2) {
       Swal.fire({
         icon: 'error',
-        title: 'Hiba történt jelszóváltásズben',
+        title: 'Hiba történt a jelszó változtatáskor',
         text: 'Minden mező kötelező',
-        showConfirmButton: true
-      })
-      setIsLoading(false)
+        showConfirmButton: true,
+      });
       return;
     }
-    if (!newpassword || !newpassword2) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Hiba történt jelszóvaltetásズben',
-        text: 'Minden mező kötelező',
-        showConfirmButton: true
-      })
-      setIsLoading(false)
-      return;
-    }
-  
+
     if (newpassword !== newpassword2) {
       Swal.fire({
         icon: 'error',
-        title: 'Hiba történt jelszóváltásズben',
+        title: 'Hiba történt a jelszó változtatáskor',
         text: 'A jelszavak nem egyeznek',
-        showConfirmButton: true
-      })
-      setIsLoading(false)
+        showConfirmButton: true,
+      });
       return;
     }
-    
+
+    setIsLoading(true);
     try {
       const res = await api.post("/auth/forgotpassword/complete", {
         email: localStorage.getItem("email"),
         forgotCode: code,
-        newpassword: newpassword
+        newpassword: newpassword,
       });
-      setIsLoading(false)
       if (res.data.message) {
         Swal.fire({
           icon: 'success',
           title: 'Sikeresen változtattad a jelszót',
           showConfirmButton: false,
-          timer: 1500
-        })
+          timer: 1500,
+        });
         localStorage.removeItem("email");
         setTimeout(() => {
           navigate("/login");
         }, 1500);
-        
       }
     } catch (err) {
-      if (err?.response?.data?.error === "missing_data") {
-        Swal.fire({
-          icon: 'error',
-          title: 'Hiba történt a jelszó változtatáskor',
-          text: 'Minden mező kötelező',
-          showConfirmButton: true,
-        })
-      } else if (err?.response?.data?.error === "internal") {
-        Swal.fire({
-          icon: 'error',
-          title: 'Hiba történt a jelszó változtatáskor',
-          text: 'Szerverhiba, próbáld meg késöbb',
-          showConfirmButton: true,
-        })
-      } else if (err?.response?.data?.error === "invalid_code") {
-        Swal.fire({
-          icon: 'error',
-          title: 'Hiba történt a jelszó változtatáskor',
-          text: 'A megadott kód helytelen',
-          showConfirmButton: true,
-        })
-      } else if (err?.response?.data?.error === "password_too_short") {
-        Swal.fire({
-          icon: 'error',
-          title: 'Hiba történt a jelszó változtatásko',
-          text: 'A jelszó hossza minimum 3 karakter kell',
-          showConfirmButton: true,
-        })
-      } else if (err?.response?.data?.error === "password_too_long") {
-        Swal.fire({
-          icon: 'error',
-          title: 'Hiba történt a jelszó változtatásko',
-          text: 'A jelszó hossza maximum 255 karakter lehet',
-          showConfirmButton: true,
-        })
-      } else {
-        Swal.fire({
-          icon: 'error',
-          title: 'Hiba történt a jelszó változtatáskor',
-          text: err?.response?.data?.error,
-          showConfirmButton: true,
-        })
-      }
-      setIsLoading(false)
+      const errorCode = err?.response?.data?.error;
+      Swal.fire({
+        icon: 'error',
+        title: 'Hiba történt a jelszó változtatáskor',
+        text: errorMessages[errorCode] || errorCode,
+        showConfirmButton: true,
+      });
+    } finally {
+      setIsLoading(false);
     }
-      
   }
   return (
     <div className="flex bg-primary  flex-col items-center justify-center h-screen">
