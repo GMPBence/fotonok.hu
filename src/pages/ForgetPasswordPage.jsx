@@ -3,13 +3,13 @@ import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import { useState } from "react";
 import api from "../app/api";
-import { useLoading } from "../context/LoadingContext";
+import { useLoading } from "../context/hooks";
 import Swal from "sweetalert2";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
-  const {setIsLoading} = useLoading()
+  const { setIsLoading } = useLoading()
   const errorMessages = {
     missing_data: 'Minden mező kötelező',
     invalid_credentials: 'A megadott emailcím nem létezik a rendszerünkben',

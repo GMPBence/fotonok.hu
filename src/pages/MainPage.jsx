@@ -7,7 +7,7 @@ import Card from "../components/Card";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import api from "../app/api";
-import { useBilling, useLoading } from "../context/LoadingContext";
+import { useBilling, useLoading } from "../context/hooks";
 import Swal from "sweetalert2";
 import getPlansBySeacrh from "../app/search";
 import sortPlans from "../app/sort";

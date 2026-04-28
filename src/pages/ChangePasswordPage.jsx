@@ -5,7 +5,7 @@ import Button from "../components/Button";
 import { useState } from "react";
 import api from "../app/api";
 import { useNavigate } from "react-router-dom";
-import { useLoading } from "../context/LoadingContext";
+import { useLoading } from "../context/hooks";
 import Swal from "sweetalert2";
 
 const ChangePasswordPage = (props) => {

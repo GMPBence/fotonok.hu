@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useState } from "react";
-import { BillingProvider, LoadingProvider, useLoading } from "./context/LoadingContext";
+import { LoadingProvider, BillingProvider } from "./context/LoadingContext";
+import { useLoading } from "./context/hooks";
 import { isAuthenticated } from "./app/auth";
 import MainPage from "./pages/MainPage";
 import LoginPage from "./pages/LoginPage";

@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import { useState } from "react";
 import api from "../app/api";
-import { useLoading } from "../context/LoadingContext";
+import { useLoading } from "../context/hooks";
 import Swal from "sweetalert2";
 
 const LoginPage = () => {
@@ -11,7 +11,7 @@ const LoginPage = () => {
   const [newpassword, setNewpassword] = useState("");
   const [newpassword2, setNewpassword2] = useState("");
   const navigate = useNavigate();
-  const {setIsLoading} = useLoading()
+  const { setIsLoading } = useLoading()
 
   const errorMessages = {
     missing_data: 'Minden mező kötelező',
@@ -80,7 +80,7 @@ const LoginPage = () => {
           fotonok.<span className="text-highlight">hu</span>
         </Link>
         <Input placeholder="Emailban kapott kód" type="email" inputType="auth" value={code} onChange={(e) => setCode(e.target.value)} />
-        <Input placeholder="Új jelszó" inputType="auth" type="password" value={newpassword} onChange={(e) => setNewpassword(e.target.value)}/>
+        <Input placeholder="Új jelszó" inputType="auth" type="password" value={newpassword} onChange={(e) => setNewpassword(e.target.value)} />
         <Input placeholder="Új jelszó újra" inputType="auth" type="password" value={newpassword2} onChange={(e) => setNewpassword2(e.target.value)} />
         <div className="flex flex-col gap-1">
           <Button type="login" text="Befejezés" onClick={handleForgotPassword} />
