@@ -4,13 +4,16 @@ import Button from "../components/Button";
 import LaptopImage from "../assets/images/laptop.png";
 import SearchBar from "../components/SearchBar";
 import Card from "../components/Card";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import api from "../app/api";
 import { useBilling, useLoading } from "../context/LoadingContext";
 import Swal from "sweetalert2";
 import getPlansBySeacrh from "../app/search";
 import sortPlans from "../app/sort";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/all";
 
 const howItWorksCards = [
   { title: " 1. Lépés", content: "Hozz létre egy Profilt" },
@@ -28,6 +31,7 @@ const MainPage = (props) => {
   const [navbarSearch, setNavbarSearch] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
   const { isReceiptNeeded, setIsReceiptNeeded } = useBilling();
+  const notesRef = useRef();
 
   const fetchPlans = async () => {
     try {
@@ -112,6 +116,35 @@ const MainPage = (props) => {
     }
     return true;
   }
+
+  gsap.registerPlugin(ScrollTrigger)
+  const scrollRef = useRef()
+  
+  useGSAP(
+    () => {
+      if (!notesRef.current) return;
+
+      const cards = gsap.utils.toArray(notesRef.current.children);
+
+      gsap.set(cards, { y: 60, opacity: 0 });
+
+      ScrollTrigger.batch(cards, {
+        start: "top 85%",
+        once: true,
+        onEnter: (batch) =>
+          gsap.to(batch, {
+            y: 0,
+            opacity: 1,
+            duration: 0.7,
+            ease: "power2.out",
+            stagger: 0.15,
+            overwrite: true,
+          }),
+      });
+    },
+    { dependencies: [plans] }
+  )
+
   return (
     <div className="flex flex-col  w-full overflow-x-hidden">
       <Navbar authenticated={props.authenticated} searchValue={navbarSearch} searchOnChange={(e) => handleNavbarSearch(e.target.value)} />
@@ -149,7 +182,7 @@ const MainPage = (props) => {
             <h1 className="text-3xl text-primary font-bold">Nincs találat</h1>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-12.5 px-20 sm:px-40 md:px-10 mt-10 max-w-400 place-items-center">
+          <div ref={notesRef} className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-12.5 px-20 sm:px-40 md:px-10 mt-10 max-w-400 place-items-center">
             {plans.map((plan) => (
               <Card
                 key={plan.note_id}
@@ -178,7 +211,7 @@ const MainPage = (props) => {
           </a>
           <div className="w-[70%] h-1 bg-highlight rounded-2xl mb-10"></div>
         </div>
-        <div className=" grid md:grid-cols-2   xl:grid-cols-4 mb-12.5 gap-12.5 ">
+        <div ref={scrollRef} className=" grid md:grid-cols-2   xl:grid-cols-4 mb-12.5 gap-12.5 ">
           {howItWorksCards.map((card) => (
             <Card
               type="small"
