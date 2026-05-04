@@ -5,7 +5,7 @@ import Card from "../components/Card";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import api from "../app/api";
-import { useBilling, useLoading } from "../context/LoadingContext";
+import { useBilling, useLoading } from "../context/hooks";
 import Swal from "sweetalert2";
 import editImg from "../assets/images/edit.png";
 import Input from "../components/Input"
@@ -80,7 +80,6 @@ const PaymentPage = (props) => {
     };
 
     if (plan) {
-      console.log("asd")
       setMeta("name", "description", plan.description);
       setMeta("property", "og:title", plan.title);
       setMeta("property", "og:description", plan.description);
@@ -163,91 +162,89 @@ const PaymentPage = (props) => {
     }
   };
   return (
-    <>
-      <div className="flex flex-col min-h-screen justify-between gap-3 w-full overflow-x-hidden">
-        <Navbar authenticated={props.authenticated} />
-        <div className="flex flex-col justify-center items-center gap-7 px-2 pt-30">
-          <div className="flex flex-col items-center">
-            <h1 className="text-4xl font-extrabold text-center">Vásárlás összegzés</h1>
-            <div className="bg-highlight h-1 mt-1 rounded-2xl w-[50%]"></div>
-          </div>
-          {plan ? (<div className="flex flex-col sm:flex-row gap-10 sm:gap-30">
+    <div className="flex flex-col min-h-screen justify-between gap-3 w-full overflow-x-hidden">
+      <Navbar authenticated={props.authenticated} />
+      <div className="flex flex-col justify-center items-center gap-7 px-2 pt-30">
+        <div className="flex flex-col items-center">
+          <h1 className="text-4xl font-extrabold text-center">Vásárlás összegzés</h1>
+          <div className="bg-highlight h-1 mt-1 rounded-2xl w-[50%]"></div>
+        </div>
+        {plan ? (<div className="flex flex-col sm:flex-row gap-10 sm:gap-30">
 
-            {plan ? <Card
-              key={plan.note_id}
-              title={plan.title}
-              src={plan.img_path}
-              desc={plan.description}
-              price={plan.price}
-              type="payment"
-              content={JSON.parse(plan.summary)}
-              noteId={plan.note_id}
-            />
-              :
-              <h1>Nincs ilyen csomag</h1>
-            }
-            <div className="flex flex-col gap-5 items-center">
-              <h1 className="text-xl font-bold">Mivel szeretnél fizetni?</h1>
-              <label checked={payment === "stripe"} onChange={() => setPayment("stripe")} htmlFor="card" className="block">
-                <input type="radio" name="payment" id="card" className="hidden peer" />
-                <div className="bg-primary text-white w-75 h-20 text-center py-2 px-3 rounded-2xl cursor-pointer peer-checked:border-4 peer-checked:border-highlight transition-all hover:scale-105" >
-                  <h2 className="text-lg">Bankkártya</h2>
-                  <p className="text-xs">Egyszerű, és biztonságos fizetés bankkártyával.</p>
-                </div>
-              </label>
-
-              <label htmlFor="paypal" className="block">
-                <input checked={payment === "paypal"} onChange={() => setPayment("paypal")} type="radio" name="payment" id="paypal" className="hidden peer" />
-                <div className="bg-primary text-white w-75 h-20  text-center py-2 px-3 rounded-2xl cursor-pointer peer-checked:border-4 peer-checked:border-highlight transition-all hover:scale-105">
-                  <h2 className="text-lg">PayPal</h2>
-                  <p className="text-xs">Kényelmes, és gyors fizetés a paypal fiokoddal.</p>
-                </div>
-              </label>
-              <div className="flex flex-row rounded-xl overflow-hidden">
-                <label htmlFor="recipt">
-                  <input
-                    type="radio"
-                    name="reciptType"
-                    id="recipt"
-                    className="hidden peer"
-                    checked={isReceiptNeeded === false}
-                    onChange={() => handleBillingType("receipt")}
-                  />
-                  <div className="bg-input-light text-[#828282] text-xl font-bold peer-checked:bg-input-dark peer-checked:text-white py-3 px-10 cursor-pointer">Nyugta</div>
-                </label>
-                <label htmlFor="invoice">
-                  <input
-                    type="radio"
-                    name="reciptType"
-                    id="invoice"
-                    className="hidden peer"
-                    checked={isReceiptNeeded === true}
-                    onChange={() => handleBillingType("invoice")}
-                  />
-                  <div className="bg-input-light text-[#828282] text-xl font-bold peer-checked:bg-input-dark peer-checked:text-white py-3 px-10 cursor-pointer">Számla</div>
-                </label>
+          {plan ? <Card
+            key={plan.note_id}
+            title={plan.title}
+            src={plan.img_path}
+            desc={plan.description}
+            price={plan.price}
+            type="payment"
+            content={JSON.parse(plan.summary)}
+            noteId={plan.note_id}
+          />
+            :
+            <h1>Nincs ilyen csomag</h1>
+          }
+          <div className="flex flex-col gap-5 items-center">
+            <h1 className="text-xl font-bold">Mivel szeretnél fizetni?</h1>
+            <label checked={payment === "stripe"} onChange={() => setPayment("stripe")} htmlFor="card" className="block">
+              <input type="radio" name="payment" id="card" className="hidden peer" />
+              <div className="bg-primary text-white w-75 h-20 text-center py-2 px-3 rounded-2xl cursor-pointer peer-checked:border-4 peer-checked:border-highlight transition-all hover:scale-105" >
+                <h2 className="text-lg">Bankkártya</h2>
+                <p className="text-xs">Egyszerű, és biztonságos fizetés bankkártyával.</p>
               </div>
-              {isReceiptNeeded ? (
-                <div onClick={() => handleBillingType("invoice")} className="bg-primary flex flex-row items-center justify-between text-white w-75 py-2 px-3 rounded-2xl cursor-pointer transition-all hover:scale-105">
-                  <h2 className="text-lg">{billingData.first_name ? `${billingData.first_name} ${billingData.last_name}` : "Új megadása"}</h2>
-                  <img src={editImg} className="w-6 h-6" alt="" />
-                </div>)
+            </label>
+
+            <label htmlFor="paypal" className="block">
+              <input checked={payment === "paypal"} onChange={() => setPayment("paypal")} type="radio" name="payment" id="paypal" className="hidden peer" />
+              <div className="bg-primary text-white w-75 h-20  text-center py-2 px-3 rounded-2xl cursor-pointer peer-checked:border-4 peer-checked:border-highlight transition-all hover:scale-105">
+                <h2 className="text-lg">PayPal</h2>
+                <p className="text-xs">Kényelmes, és gyors fizetés a paypal fiokoddal.</p>
+              </div>
+            </label>
+            <div className="flex flex-row rounded-xl overflow-hidden">
+              <label htmlFor="recipt">
+                <input
+                  type="radio"
+                  name="reciptType"
+                  id="recipt"
+                  className="hidden peer"
+                  checked={isReceiptNeeded === false}
+                  onChange={() => handleBillingType("receipt")}
+                />
+                <div className="bg-input-light text-[#828282] text-xl font-bold peer-checked:bg-input-dark peer-checked:text-white py-3 px-10 cursor-pointer">Nyugta</div>
+              </label>
+              <label htmlFor="invoice">
+                <input
+                  type="radio"
+                  name="reciptType"
+                  id="invoice"
+                  className="hidden peer"
+                  checked={isReceiptNeeded === true}
+                  onChange={() => handleBillingType("invoice")}
+                />
+                <div className="bg-input-light text-[#828282] text-xl font-bold peer-checked:bg-input-dark peer-checked:text-white py-3 px-10 cursor-pointer">Számla</div>
+              </label>
+            </div>
+            {isReceiptNeeded ? (
+              <div onClick={() => handleBillingType("invoice")} className="bg-primary flex flex-row items-center justify-between text-white w-75 py-2 px-3 rounded-2xl cursor-pointer transition-all hover:scale-105">
+                <h2 className="text-lg">{billingData.first_name ? `${billingData.first_name} ${billingData.last_name}` : "Új megadása"}</h2>
+                <img src={editImg} className="w-6 h-6" alt="" />
+              </div>)
               : (
                 <div className="w-75">
                   <Input value={billingData?.email ? billingData?.email : ""} onChange={(e) => setBillingData({ email: e.target.value })} color="light" type="Email" />
                 </div>
               )}
-              <div className="w-75">
-                <h2 className="text-xl font-bold text-center"> Összesen: {plan?.price ? plan.price : 0} Ft</h2>
-                <Button type="primary" text="Fizetés" onClick={handlePay} />
-              </div>
+            <div className="w-75">
+              <h2 className="text-xl font-bold text-center"> Összesen: {plan?.price ? plan.price : 0} Ft</h2>
+              <Button type="primary" text="Fizetés" onClick={handlePay} />
             </div>
-          </div>) : <>Nincs ilyen csomag</>}
+          </div>
+        </div>) : <>Nincs ilyen csomag</>}
 
-        </div>
-        <Footer />
       </div>
-    </>
+      <Footer />
+    </div>
   );
 };
 export default PaymentPage;

@@ -3,14 +3,14 @@ import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/Button";
 import { useState } from "react";
 import api from "../app/api";
-import { useLoading } from "../context/LoadingContext";
+import { useLoading } from "../context/hooks";
 import Swal from 'sweetalert2';
 
 const LoginPage = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const {setIsLoading} = useLoading()
+  const { setIsLoading } = useLoading()
 
   const handleLogin = async () => {
     setIsLoading(true)
@@ -79,10 +79,10 @@ const LoginPage = (props) => {
         </Link>
         <Input inputType="auth" type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
         <div className="flex flex-col gap-1">
-            <Input inputType="auth" type="password" placeholder="Jelszó" value={password} onChange={e => setPassword(e.target.value)} />
-            <Link to="/forgotpassword" className="text-white ">
-              Elfelejtetted a jelszavad? Kattints ide!
-            </Link>
+          <Input inputType="auth" type="password" placeholder="Jelszó" value={password} onChange={e => setPassword(e.target.value)} />
+          <Link to="/forgotpassword" className="text-white ">
+            Elfelejtetted a jelszavad? Kattints ide!
+          </Link>
         </div>
         <div className="flex flex-col gap-1">
           <Button type="login" text="Bejelentkezés" onClick={handleLogin} />

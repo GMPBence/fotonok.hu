@@ -1,8 +1,5 @@
-import { createContext, useContext, useState } from 'react'
-
-
-const LoadingContext = createContext(undefined);
-const BillingContext = createContext(undefined);
+import { useState } from 'react'
+import { BillingContext, LoadingContext } from './contexts'
 
 export const LoadingProvider = ({ children }) => {
     const [isLoading, setIsLoading] = useState(false);
@@ -14,16 +11,6 @@ export const LoadingProvider = ({ children }) => {
     );
 };
 
-export const useLoading = () => {
-    const context = useContext(LoadingContext);
-
-    if (!context) {
-        throw new Error("useLoading must be used within a LoadingProvider");
-    }
-
-    return context;
-};
-
 export const BillingProvider = ({ children }) => {
     const [isReceiptNeeded, setIsReceiptNeeded] = useState(false);
     const [billingData, setBillingData] = useState();
@@ -33,14 +20,4 @@ export const BillingProvider = ({ children }) => {
             {children}
         </BillingContext.Provider>
     );
-};
-
-export const useBilling = () => {
-    const context = useContext(BillingContext);
-
-    if (!context) {
-        throw new Error("useBilling must be used within a BillingProvider");
-    }
-
-    return context;
 };

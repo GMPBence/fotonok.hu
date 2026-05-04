@@ -7,7 +7,7 @@ import Card from "../components/Card";
 import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import api from "../app/api";
-import { useBilling, useLoading } from "../context/LoadingContext";
+import { useBilling, useLoading } from "../context/hooks";
 import Swal from "sweetalert2";
 import getPlansBySeacrh from "../app/search";
 import sortPlans from "../app/sort";
@@ -182,7 +182,7 @@ const MainPage = (props) => {
             <h1 className="text-3xl text-primary font-bold">Nincs találat</h1>
           </div>
         ) : (
-          <div ref={notesRef} className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-12.5 px-20 sm:px-40 md:px-10 mt-10 max-w-400 place-items-center">
+          <div ref={notesRef} className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-12.5 px-2 mt-10 max-w-400 place-items-center">
             {plans.map((plan) => (
               <Card
                 key={plan.note_id}

@@ -3,11 +3,11 @@ import Footer from "../components/Footer";
 import Card from "../components/Card";
 import { useEffect, useState } from "react";
 import api from "../app/api";
-import { useLoading } from "../context/LoadingContext";
+import { useLoading } from "../context/hooks";
 import Swal from "sweetalert2";
 const NotesPage = (props) => {
   const [plans, setPlans] = useState();
-  const {setIsLoading} = useLoading()
+  const { setIsLoading } = useLoading()
 
   const fetchPlans = async () => {
     try {
@@ -44,8 +44,8 @@ const NotesPage = (props) => {
         </div>
         <div className="w-full sm:max-w-200 px-5 mb-20 flex gap-5 flex-col">
           {plans && plans.length > 0 ? plans.map((plan) => (
-              <Card type="note" key={plan.note_id} title={plan.title} size={plan.file_size} id={plan.note_id} />
-            )) : <>
+            <Card type="note" key={plan.note_id} title={plan.title} size={plan.file_size} id={plan.note_id} />
+          )) : <>
             <h2 className="text-center text-xl">Még nincsenek jegyzeteid. Vásárolj most, és kezdj el tanulni!</h2>
           </>}
         </div>
