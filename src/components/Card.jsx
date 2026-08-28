@@ -11,7 +11,7 @@ function Card(props) {
   const handleDownload = async (noteId) => {
     setIsLoading(true)
     try {
-      const res = await api.get("/plans/download?id=" + noteId, {
+      const res = await api.get("/notes/download?id=" + noteId, {
         responseType: 'blob',
       });
       const url = window.URL.createObjectURL(new Blob([res.data]));
@@ -44,7 +44,7 @@ function Card(props) {
   const handleClaim = async (noteId) => {
     setIsLoading(true)
     try {
-      const res = await api.get("/plans/claim?id=" + noteId);
+      const res = await api.get("/notes/claim?id=" + noteId);
       setIsLoading(false)
       if (res.status === 200) {
         Swal.fire({
@@ -108,7 +108,7 @@ function Card(props) {
     rounded-t-xl" />
 
         <div className="bg-primary flex-1 flex flex-col text-white p-5">
-          <h2 className="border-b-highlight border-b-2 w-fit pe-2 mb-3 font-bold">
+          <h2 className="border-b-highlight border-b-2 w-fit pe-2 mb-3 font-light">
             {props.title}
           </h2>
 
@@ -133,7 +133,7 @@ function Card(props) {
           <p className="text-sm mt-2">{props.desc}</p>
 
           <div className="flex flex-col w-full mt-auto">
-            <h3 className="text-center my-2 font-bold">
+            <h3 className="text-center my-2 font-light">
               {
                 props.free ? (
                   "Ingyenes"
@@ -165,7 +165,7 @@ function Card(props) {
         <h2 className="border-b-highlight border-b-2 pb-2 mb-3">
           {props.title}
         </h2>
-        <p className="font-bold">{props.content}</p>
+        <p className="font-light">{props.content}</p>
       </div>
     );
   }
@@ -196,7 +196,7 @@ function Card(props) {
         )}
         <img src={`https://fotonok.hu/img/${props.src}`} alt="" />
         <div className="bg-primary h-full text-white p-5 ">
-          <h2 className="border-b-highlight border-b-2 w-fit pe-2 mb-3 font-bold">
+          <h2 className="border-b-highlight border-b-2 w-fit pe-2 mb-3 font-light">
             {props.title}
           </h2>
           <div className="" style={{ listStyle: "none", paddingLeft: "0" }}>

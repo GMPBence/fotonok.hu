@@ -53,9 +53,10 @@ const LoginPage = () => {
       const res = await api.post("/auth/register", {
         email,
         password,
+        aszf: aszfAccepted
       });
       setIsLoading(false)
-      if (res.data.message) {
+      if (res.status === 200) {
         Swal.fire({
           icon: 'success',
           title: 'Sikeres regisztráció',

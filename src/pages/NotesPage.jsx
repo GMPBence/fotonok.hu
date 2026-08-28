@@ -12,7 +12,7 @@ const NotesPage = (props) => {
   const fetchPlans = async () => {
     try {
       setIsLoading(true)
-      const res = await api.get("/plans/get/user");
+      const res = await api.get("/notes/get/user");
       setPlans(res.data.notes);
       setIsLoading(false)
     } catch (err) {

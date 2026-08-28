@@ -19,7 +19,7 @@ function Navbar(props) {
       <Link to="/" className="text-white font-bold text-3xl">
         fotonok.<span className="text-highlight">hu</span>
       </Link>
-      <div className=" hidden lg:flex flex-row gap-6 items-center font-bold">
+      <div className=" hidden lg:flex flex-row gap-6 items-center font-light">
         {props.authenticated ? (
           <Link
             to="/changepassword"

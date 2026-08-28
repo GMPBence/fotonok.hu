@@ -31,13 +31,13 @@ function Button(props) {
   }
   if (props.type === "login") {
     return (
-      <button className="text-white py-2 text-center border-white border rounded-xl bg-input-gray font-bold hover:bg-white hover:text-black transition-all hover:scale-105 w-full cursor-pointer" onClick={props.onClick}>
+      <button className="text-white py-2 text-center border-white border rounded-xl bg-input-gray font-light hover:bg-white hover:text-black transition-all hover:scale-105 w-full cursor-pointer" onClick={props.onClick}>
         {props.text}
       </button>
     );
   }
   if (props.type === "save") {
-    return <button onClick={props.onClick} className="bg-input-light text-[#828282]  px-4 py-2 text-xl font-bold rounded-md w-full cursor-pointer hover:bg-[#a5a5a5] hover:text-white transition-all hover:scale-105">{props.text}</button>;
+    return <button onClick={props.onClick} className="bg-input-light text-[#828282]  px-4 py-2 text-xl font-light rounded-md w-full cursor-pointer hover:bg-[#a5a5a5] hover:text-white transition-all hover:scale-105">{props.text}</button>;
   }
   if (props.type === "billing") {
     return (
@@ -51,7 +51,7 @@ function Button(props) {
             defaultChecked={props.default === 1}
             onChange={() => props.onChange(props.id1 || "option1")}
           />
-          <div className="bg-input-light text-[#828282] text-xl font-bold peer-checked:bg-input-dark peer-checked:text-white py-3 px-10 cursor-pointer">{props.label1 || "Option 1"}</div>
+          <div className="bg-input-light text-[#828282] text-xl font-light peer-checked:bg-input-dark peer-checked:text-white py-3 px-10 cursor-pointer">{props.label1 || "Option 1"}</div>
         </label>
         <label htmlFor={props.id2 || "option2"}>
           <input 
@@ -62,7 +62,7 @@ function Button(props) {
             defaultChecked={props.default === 2}
             onChange={() => props.onChange(props.id2 || "option2")}
           />
-          <div className="bg-input-light text-[#828282] text-xl font-bold peer-checked:bg-input-dark peer-checked:text-white py-3 px-10 cursor-pointer">{props.label2 || "Option 2"}</div>
+          <div className="bg-input-light text-[#828282] text-xl font-light peer-checked:bg-input-dark peer-checked:text-white py-3 px-10 cursor-pointer">{props.label2 || "Option 2"}</div>
         </label>
       </div>
     );

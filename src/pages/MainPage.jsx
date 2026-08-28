@@ -35,7 +35,7 @@ const MainPage = (props) => {
 
   const fetchPlans = async () => {
     try {
-      const res = await api.get("/plans/get/all");
+      const res = await api.get("/notes/get/all");
 
       const sortedPlans = sortPlans(res.data.notes);
 
@@ -119,7 +119,7 @@ const MainPage = (props) => {
 
   gsap.registerPlugin(ScrollTrigger)
   const scrollRef = useRef()
-  
+
   useGSAP(
     () => {
       if (!notesRef.current) return;
@@ -161,7 +161,7 @@ const MainPage = (props) => {
             <Button text="Hogyan működik?" type="how" href="#howItWorks" />
           </div>
         </div>
-        <img src={LaptopImage} className=" w-120" alt="" />
+        <img src={LaptopImage} className=" w-135" alt="" />
       </div>
       <div className="bg-primary w-[300%] -ms-10 h-25 my-20 rotate-358"></div>
 
@@ -194,7 +194,7 @@ const MainPage = (props) => {
                 desc={plan.description}
                 price={plan.price}
                 type="big"
-                content={JSON.parse(plan.summary)}
+                content={plan.summary}
                 noteId={plan.note_id}
               />
             ))}

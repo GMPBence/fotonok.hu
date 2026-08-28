@@ -30,11 +30,11 @@ const LoginPage = () => {
     setIsLoading(true);
     try {
       const res = await api.post("/auth/forgotpassword", { email });
-      if (res.data.message) {
+      if (res.status === 200) {
         localStorage.setItem("email", email);
         Swal.fire({
           icon: 'success',
-          title: 'Sikeresen elküldted az emailt',
+          title: 'Sikeresen elküldtük az emailt',
           text: 'A jelszóváltáshoz tartozó kódot a megadott emailcímre kiküldtük',
           showConfirmButton: false,
           timer: 1500,

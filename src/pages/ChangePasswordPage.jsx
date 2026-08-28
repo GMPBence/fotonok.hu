@@ -45,7 +45,7 @@ const ChangePasswordPage = (props) => {
       setIsLoading(true);
       try {
         const res = await api.post("/auth/account/delete");
-        if (res.data.message) {
+        if (res.status === 200) {
           Swal.fire({
             icon: 'success',
             title: 'Fiók sikeresen törölve',
@@ -95,10 +95,10 @@ const ChangePasswordPage = (props) => {
     setIsLoading(true);
     try {
       const res = await api.post("/auth/reset/password", {
-        oldpassword: password,
-        newpassword: newpassword,
+        old_password: password,
+        new_password: newpassword,
       });
-      if (res.data.message) {
+      if (res.status === 200) {
         Swal.fire({
           icon: 'success',
           title: 'Sikeres jelszóváltás',
@@ -137,9 +137,9 @@ const ChangePasswordPage = (props) => {
     try {
       const res = await api.post("/auth/reset/email", {
         password: password,
-        newEmail: newEmail,
+        email: newEmail,
       });
-      if (res.data.message) {
+      if (res.status === 200) {
         Swal.fire({
           icon: 'success',
           title: 'Sikeres email változtatás',

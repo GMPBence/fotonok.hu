@@ -22,7 +22,7 @@ const LoginPage = () => {
   };
 
   const handleForgotPassword = async () => {
-    if (!localStorage.getItem("email") || !code || !newpassword || !newpassword2) {
+    if (!code || !newpassword || !newpassword2) {
       Swal.fire({
         icon: 'error',
         title: 'Hiba történt a jelszó változtatáskor',
@@ -45,11 +45,10 @@ const LoginPage = () => {
     setIsLoading(true);
     try {
       const res = await api.post("/auth/forgotpassword/complete", {
-        email: localStorage.getItem("email"),
-        forgotCode: code,
-        newpassword: newpassword,
+        token: code,
+        password: newpassword,
       });
-      if (res.data.message) {
+      if (res.status === 200) {
         Swal.fire({
           icon: 'success',
           title: 'Sikeresen változtattad a jelszót',

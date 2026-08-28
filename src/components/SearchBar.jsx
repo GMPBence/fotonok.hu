@@ -20,7 +20,7 @@ function SearchBar(props) {
         value={props.value}
         onChange={handleChange}
         type="text"
-        className="w-full outline-0 font-bold"
+        className="w-full outline-0 text-white font-light"
         placeholder="Keresés..."
       />
       <img src={searchIcon} className="w-6 h-6" alt="" />

@@ -21,7 +21,7 @@ const PaymentPage = (props) => {
   const fetchPlans = async () => {
     try {
       setIsLoading(true)
-      const res = await api.get("/plans/get?id=" + window.location.search.split("=")[1]);
+      const res = await api.get("/notes/get?id=" + window.location.search.split("=")[1]);
       setIsLoading(false)
       if (res.data.note.price == 0.00) {
         Swal.fire({
@@ -178,7 +178,7 @@ const PaymentPage = (props) => {
             desc={plan.description}
             price={plan.price}
             type="payment"
-            content={JSON.parse(plan.summary)}
+            content={plan.summary}
             noteId={plan.note_id}
           />
             :
