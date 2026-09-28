@@ -15,15 +15,16 @@ function SearchBar(props) {
   };
 
   return (
-    <div className="text-light bg-secondary rounded-2xl flex flex-row justify-between w-full py-2 px-3">
+    <div className="text-light bg-secondary rounded-xl flex flex-row justify-between w-full py-2.5 px-4 ring-1 ring-white/5 focus-within:ring-highlight/70 transition-shadow">
       <input
         value={props.value}
         onChange={handleChange}
         type="text"
-        className="w-full outline-0 text-white font-light"
+        aria-label="Jegyzetek keresése"
+        className="w-full outline-0 text-white font-light placeholder:text-light/80 bg-transparent"
         placeholder="Keresés..."
       />
-      <img src={searchIcon} className="w-6 h-6" alt="" />
+      <img src={searchIcon} className="w-5 h-5 opacity-80" alt="" />
     </div>
   );
 }
